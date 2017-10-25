@@ -1,0 +1,86 @@
+/* reset */
+html { font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-overflow-scrolling: touch;}
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+header,footer,section,article,aside,nav,address,figure,figcaption,menu,details{display:block;}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;font-weight:normal;}
+html,body,fieldset,img,iframe,abbr{border:0;}
+i,cite,em,var,address,dfn{font-style:normal;}
+li{list-style:none;}
+h1,h2,h3,h4,h5,h6,small{font-size:100%;}
+sup,sub{font-size:83%;}
+pre,code,kbd,samp{font-family:inherit;}
+textarea{overflow:auto;resize:none;}
+label,summary{cursor:default;}
+a,button{cursor:pointer;-webkit-appearance: none;-webkit-tap-highlight-color: rgba(0,0,0,0);}
+input[type="button"],input[type="submit"]{-webkit-appearance: none;-webkit-tap-highlight-color: rgba(0,0,0,0);}
+h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:normal;}
+del,ins,u,s,a,a:hover{text-decoration:none;}
+body,textarea,input,button,select,keygen,legend{font:14px/1.14 "PingFangSC-Regular","Micorsoft Yahei","Arial","黑体","宋体",sans-serif;color:#333;outline:0;}
+html{font-size:100px; height: 100%;}
+body{font-size: 0.16rem;}
+a,button,span,em,i,ul,li,dl,dt,dd{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+
+/*common*/
+a.react {display: block;color: inherit;height: 100%;}
+space { display: inline-block;width: .08rem;}
+.clear{clear:both;}
+.single-line {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.double-line {display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
+.treble-line {display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;}
+.icon {background: url(../images/icon.png) no-repeat;background-position: 0.1rem 0.08rem;background-size: .125rem .5rem;}
+.blnk { clear: both;overflow: hidden;width: 1px;height: .57rem;}
+.blnk5 { clear: both;overflow: hidden;width: 1px;height: .5rem; }
+
+/*搜索*/
+.XsearchBox{width: 100%;height:.28rem;padding:.09rem 0px;opacity:0.85;-moz-opacity:0.85;-webkit-opacity:0.85;-o-opacity:0.85; filter:alpha(opacity=85);background: #145a95;}
+.Xsearch{width: 90%;height:.28rem;margin:auto;border-radius: 54px;background: #fff;overflow: hidden;display: -webkit-box;display: -ms-box;}
+.Xsearch button{width:.3rem;height:.28rem;vertical-align: middle;border:none;}
+.Xsearch input{height:.28rem;padding-right:.14rem;vertical-align: middle;border:none;font-size: .11rem;color: #00508f;line-height: .26px;-webkit-box-flex: 1;-ms-box-flex: 1;-webkit-box-sizing: border-box;display: block;}
+
+/*媒体查询*/
+@media (max-width: 320px) {
+	html {
+		font-size: 85.33px;
+	}
+}
+@media (min-width: 330px) {
+	html {
+		font-size: 92px;
+	}
+}
+@media (min-width: 375px) {
+	html {
+		font-size: 100px;
+	}
+}
+@media (min-width: 414px) {
+	html {
+		font-size: 110px;
+	}
+}
+@media (min-width: 560px) {
+	html {
+		font-size: 150px;
+	}
+}
+@media (min-width: 640px) {
+	html {
+		font-size: 170px;
+	}
+}
+@media (min-width: 750px) {
+	html {
+		font-size: 200px;
+	}
+}
+@media (min-width: 1024px) {
+	html {
+		font-size: 273px;
+	}
+}
+@media (min-width: 1080px) {
+	html {
+		font-size: 288px;
+	}
+}
