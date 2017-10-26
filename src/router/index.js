@@ -26,5 +26,6 @@ export default new Router({
     	component:seller
     }
   ],
-  linkActiveClass:'active'
+  linkActiveClass:'active',
+  //linkExactActiveClass:'active'
 })

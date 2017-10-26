@@ -21,20 +21,22 @@
 </script>
 
 <style lang="less">
+
+@import "./common/less/mixin.less";
+
 #app .tab{
   display:flex;
   width:100%;
-  height:40px;
-  line-height:40px;
-  border-bottom:1px solid rgba(7,17,27,0.1);
+  height:.4rem;
+  line-height:.4rem;
+  //border-bottom:1px solid rgba(7,17,27,0.1);
+  .border-1px(rgba(7,17,27,0.1));
   .tab-item{
     flex:1;
     text-align:center;
-    font-size:28px;
-    color:#666;
     & > a{
       display:block;
-      font-size:14px;
+      font-size:.14rem;
       color:rgb(77,85,93);
       &.active{
         color:rgb(240,20,20);
