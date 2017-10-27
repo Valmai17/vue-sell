@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-      <v-header></v-header>
+      <v-header :my-message="seller"></v-header>
       <div class="tab">
         <div class="tab-item"><router-link to="/goods">商品</router-link></div>
         <div class="tab-item"><router-link to="/ratings">评论</router-link></div>
@@ -13,7 +13,7 @@
 <script>
   import header from './components/header/header.vue';
   import axios from 'axios';
-  
+  //axios.defaults.baseURL = 'http://localhost:8080/#/';
   export default{
     data(){
       return{
@@ -21,11 +21,27 @@
       }
     },
     created(){//(钩子函数)实例已经创建完成，属性已经绑定
-      axios.get('/api/seller').then(function (response) {
-        this.seller = response.data;
-      }.bind(this)).catch(function (error) {
-        alert(error);
+      // axios.get('/api/seller').then(function (res) {
+      //   this.seller = res.data;
+      //   console.log(res.data);
+      // }.bind(this)).catch(function (error) {
+      //   alert(error);
+      // });
+
+      axios.get('/api/seller')
+      .then(function (response) {
+        console.log(response);
+        //this.seller = response.data.data;
+      })
+      .catch(function (error) {
+        console.log(error);
       });
+
+      // axios.get("/api/seller").then((resq)=> {
+      //     console.log(resq.data);
+
+      //     this.seller = resq.data;
+      // })
     },
     components:{
       'v-header':header
