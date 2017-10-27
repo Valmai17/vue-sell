@@ -12,8 +12,21 @@
 
 <script>
   import header from './components/header/header.vue';
-
+  import axios from 'axios';
+  
   export default{
+    data(){
+      return{
+        seller:{}
+      }
+    },
+    created(){//(钩子函数)实例已经创建完成，属性已经绑定
+      axios.get('/api/seller').then(function (response) {
+        this.seller = response.data;
+      }.bind(this)).catch(function (error) {
+        alert(error);
+      });
+    },
     components:{
       'v-header':header
     }
