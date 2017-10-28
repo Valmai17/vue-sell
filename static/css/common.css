@@ -28,15 +28,6 @@ space { display: inline-block;width: .08rem;}
 .single-line {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .double-line {display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
 .treble-line {display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;}
-.icon {background: url(../images/icon.png) no-repeat;background-position: 0.1rem 0.08rem;background-size: .125rem .5rem;}
-.blnk { clear: both;overflow: hidden;width: 1px;height: .57rem;}
-.blnk5 { clear: both;overflow: hidden;width: 1px;height: .5rem; }
-
-/*搜索*/
-.XsearchBox{width: 100%;height:.28rem;padding:.09rem 0px;opacity:0.85;-moz-opacity:0.85;-webkit-opacity:0.85;-o-opacity:0.85; filter:alpha(opacity=85);background: #145a95;}
-.Xsearch{width: 90%;height:.28rem;margin:auto;border-radius: 54px;background: #fff;overflow: hidden;display: -webkit-box;display: -ms-box;}
-.Xsearch button{width:.3rem;height:.28rem;vertical-align: middle;border:none;}
-.Xsearch input{height:.28rem;padding-right:.14rem;vertical-align: middle;border:none;font-size: .11rem;color: #00508f;line-height: .26px;-webkit-box-flex: 1;-ms-box-flex: 1;-webkit-box-sizing: border-box;display: block;}
 
 /*媒体查询*/
 @media (max-width: 320px) {
