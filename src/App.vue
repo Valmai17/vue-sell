@@ -17,31 +17,18 @@
   export default{
     data(){
       return{
-        seller:{}
+        seller:''
       }
     },
     created(){//(钩子函数)实例已经创建完成，属性已经绑定
-      // axios.get('/api/seller').then(function (res) {
-      //   this.seller = res.data;
-      //   console.log(res.data);
-      // }.bind(this)).catch(function (error) {
-      //   alert(error);
-      // });
-
       axios.get('/api/seller')
-      .then(function (response) {
-        console.log(response);
-        //this.seller = response.data.data;
-      })
+      .then(function (res) {
+        this.seller = res.data.data;
+        console.log(this.seller);
+      }.bind(this))
       .catch(function (error) {
-        console.log(error);
+        alert(error);
       });
-
-      // axios.get("/api/seller").then((resq)=> {
-      //     console.log(resq.data);
-
-      //     this.seller = resq.data;
-      // })
     },
     components:{
       'v-header':header
