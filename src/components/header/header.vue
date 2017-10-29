@@ -15,9 +15,16 @@
                     <span class="text">{{seller.supports[0].description}}</span>
                 </div>
     		</div>
-            <div v-if="seller.supports" class=""></div>
+            <div v-if="seller.supports" class="support-count">
+                <span class="count">{{seller.supports.length}}个</span>
+                <i class="icon-keyboard_arrow_right"></i>
+            </div>
     	</div>
-    	<div class="bulletin-wrapper"></div>
+    	<div class="bulletin-wrapper">
+         <span class="bulletin-title"></span>
+         <span class="bulletin-text">{{seller.bulletin}}</span>
+         <i class="icon-keyboard_arrow_right"></i>
+        </div>
     </div>
 </template>
 
@@ -46,10 +53,11 @@
 @import "../../common/less/mixin.less";
 .header{
     color:#fff;
-    background: #666;
+    background: #999;
     .content-wrapper{
         padding: .24rem .12rem .18rem .24rem;
         font-size: 0px;
+        position: relative;
         .avatar{
             display: inline-block;
             vertical-align: top;
@@ -75,7 +83,7 @@
                 }
                 .name{
                     margin-left: .06rem;
-                    font-size: .16rem;
+                    font-size: .18rem;
                     line-height: .18rem;
                     font-weight: bold;
                 }
@@ -83,7 +91,7 @@
             .description{
                 margin-bottom: .1rem;
                 line-height: .12rem;
-                font-size: .12rem;
+                font-size: .14rem;
             }
             .support{
                 .icon{
@@ -111,10 +119,40 @@
                     }
                 }
                 .text{
-                    line-height: .12rem;font-size: .1rem;
+                    line-height: .12rem;
+                    font-size: .12rem;
                 }
             }
         }
+        .support-count{
+            position: absolute;
+            right: .12rem;
+            bottom: .18rem;
+            padding: 0 .08rem;
+            height: .24rem;
+            line-height: .24rem;
+            border-radius: .14rem;
+            background:rgba(0,0,0,0.2);
+            text-align: center;
+            .count{
+                vertical-align: top;
+                font-size: .12rem;
+            }
+            .icon-keyboard_arrow_right{
+                margin-left: .02rem;
+                line-height: .24rem;
+                font-size: .12rem;
+
+            }
+        }
+    }
+    .bulletin-wrapper{
+        height: .28rem;
+        line-height: .28rem;
+        padding: 0 .22rem 0 .12rem;
+        white-space: normal;
+        overflow:hidden;
+        text-overflow:ellipsis;
     }
 }
 </style>
