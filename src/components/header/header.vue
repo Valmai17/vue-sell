@@ -42,7 +42,12 @@
 
 <script>//type="text/ecmascript-6"
   export default{
-    props: ['myMessage'],
+    //props: ['myMessage'],
+    props: {
+        seller: {
+            type: Object
+        }
+    },
     data:function(){
     	return {
             seller:'1',
@@ -52,12 +57,12 @@
     created(){
         this.classMap = ['decrease','discount','special','invoice','guarantee']
     },
-    mounted(){ //模板编译之后，代替之前ready
-        this.seller=this.myMessage;
-        console.log('头部接收的数据');
-        console.log(this.seller);
-        console.log(this.seller);
-    },
+    // mounted(){ //模板编译之后，代替之前ready
+    //     this.seller=this.myMessage;
+    //     console.log('头部接收的数据');
+    //     console.log(this.seller);
+    //     console.log(this.seller);
+    // },
     methods:{
         showDetail(){
             this.detailShow = true;
@@ -68,7 +73,7 @@
 };
 </script>
 
-<style lang="less" rel="stylesheet/less">
+<style  scoped lang="less" rel="stylesheet/less">
 @import "../../common/less/mixin.less";
 .header{
     position: relative;
