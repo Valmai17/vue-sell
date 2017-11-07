@@ -142,15 +142,15 @@ export default{
                 }
                 .name{
                     margin-left: .06rem;
-                    font-size: .18rem;
-                    line-height: .18rem;
+                    font-size: .2rem;
+                    line-height: .2rem;
                     font-weight: bold;
                 }
             }
             .description{
                 margin-bottom: .1rem;
-                line-height: .12rem;
-                font-size: .14rem;
+                line-height: .16rem;
+                font-size: .16rem;
             }
             .support{
                 .icon{
@@ -178,8 +178,8 @@ export default{
                     }
                 }
                 .text{
-                    line-height: .12rem;
-                    font-size: .12rem;
+                    line-height: .14rem;
+                    font-size: .14rem;
                 }
             }
         }
@@ -195,12 +195,12 @@ export default{
             text-align: center;
             .count{
                 vertical-align: top;
-                font-size: .12rem;
+                font-size: .14rem;
             }
             .icon-keyboard_arrow_right{
                 margin-left: .02rem;
                 line-height: .24rem;
-                font-size: .12rem;
+                font-size: .14rem;
 
             }
         }
@@ -226,11 +226,11 @@ export default{
         .bulletin-text{
             vertical-align: top;
             margin:0 .04rem;
-            font-size: .12rem;
+            font-size: .14rem;
         }
         .icon-keyboard_arrow_right{
             position: absolute;
-            font-size: .12rem;
+            font-size: .14rem;
             right: .12rem;
             top:.08rem;
         }
@@ -273,9 +273,9 @@ export default{
                 margin-top: .64rem;
                 padding-bottom: .64rem;
                 .name{
-                    line-height: .16rem;
+                    line-height: .18rem;
                     text-align: center;
-                    font-size: .16rem;
+                    font-size: .18rem;
                     font-weight: 700;
                 }
                 .star-wrapper{
@@ -296,7 +296,7 @@ export default{
                     .text{
                         padding:0 .12rem;
                         font-weight:700;
-                        font-size:.14rem;
+                        font-size:.16rem;
                     }
                 }
                 .supports{
@@ -335,7 +335,7 @@ export default{
                         }
                         .text{
                             line-height:.16rem;
-                            font-size:.12rem;
+                            font-size:.14rem;
                         }
                     }
                 }
@@ -345,7 +345,7 @@ export default{
                     .content{
                         padding:0 .12rem;
                         line-height:.24rem;
-                        font-size:.12rem;
+                        font-size:.14rem;
                     }
                 }
             }
@@ -356,7 +356,7 @@ export default{
             height: .32rem;
             margin: -0.64rem auto 0 auto;
             clear:both;
-            font-size: .32rem;
+            font-size: .36rem;
         }
     }
 }

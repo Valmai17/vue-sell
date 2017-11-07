@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-      <v-header :my-message="seller"></v-header>
+      <v-header :seller="seller"></v-header>
       <div class="tab">
         <div class="tab-item"><router-link to="/goods">商品</router-link></div>
         <div class="tab-item"><router-link to="/ratings">评论</router-link></div>
@@ -11,13 +11,13 @@
 </template>
 
 <script>
-  import header from './components/header/header.vue';
   import axios from 'axios';
+  import header from './components/header/header.vue';
   //axios.defaults.baseURL = 'http://localhost:8080/#/';
   export default{
     data(){
       return{
-        seller:''
+        seller:{}
       }
     },
     created(){//(钩子函数)实例已经创建完成，属性已经绑定
@@ -45,6 +45,7 @@
   width:100%;
   height:.4rem;
   line-height:.4rem;
+  background:#fff;
   //border-bottom:1px solid rgba(7,17,27,0.1);
   .border-1px(rgba(7,17,27,0.1));
   .tab-item{
@@ -52,7 +53,7 @@
     text-align:center;
     & > a{
       display:block;
-      font-size:.14rem;
+      font-size:.16rem;
       color:rgb(77,85,93);
       &.active{
         color:rgb(240,20,20);
