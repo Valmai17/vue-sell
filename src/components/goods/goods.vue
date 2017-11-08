@@ -4,7 +4,7 @@
             <ul>
                 <li v-for="item in goods" class="menu-item">
                     <span class="text  border-1px">
-                        <span v-show="item.type>0" class="icon" :class="classMap"></span>{{item.name}}
+                        <v-icon :size="3" :subscript="item.type"></v-icon>{{item.name}}
                     </span>
                 </li>
             </ul>
@@ -15,6 +15,7 @@
 
 <script type="text/ecmascript-6">
   import axios from 'axios';
+  import icon from '../icon/icon.vue';
   export default{
     // props:{
     //     seller:{
@@ -27,7 +28,7 @@
         }
     },
     created(){
-        this.classMap = ['decrease','discount','special','invoice','guarantee'];
+        //this.classMap = ['decrease','discount','special','invoice','guarantee'];
 
         axios.get('/api/goods')
         .then(function (res) {
@@ -38,6 +39,9 @@
         .catch(function (error) {
             alert(error);
         });
+    },
+    components:{
+        'v-icon':icon
     }
   };
 </script>
@@ -47,7 +51,7 @@
 .goods{
     display:flex;
     position:absolute;
-    top:1.74rem;
+    top:1.8rem;
     bottom:.46rem;
     width: 100%;
     overflow:hidden;
@@ -61,36 +65,36 @@
             width:.56rem;
             padding:0 .12rem;
             line-height:.18rem;
-            .icon{
-                display:inline-block;
-                width:.12rem;
-                height:.12rem;
-                vertical-align:top;
-                margin-right:.02rem;
-                background-size:.12rem .12rem;
-                background-repeat:no-repeat;
-                &.decrease{
-                    .bg-image('decrease_3');
-                }
-                &.discount{
-                    .bg-image('discount_3');
-                }
-                &.guarantee{
-                    .bg-image('guarantee_3');
-                }
-                &.invoice{
-                    .bg-image('invoice_3');
-                }
-                &.special{
-                    .bg-image('special_3');
-                }
-            }
+            // .icon{
+            //     display:inline-block;
+            //     width:.12rem;
+            //     height:.12rem;
+            //     vertical-align:top;
+            //     margin-right:.02rem;
+            //     background-size:.12rem .12rem;
+            //     background-repeat:no-repeat;
+            //     &.decrease{
+            //         .bg-image('decrease_3');
+            //     }
+            //     &.discount{
+            //         .bg-image('discount_3');
+            //     }
+            //     &.guarantee{
+            //         .bg-image('guarantee_3');
+            //     }
+            //     &.invoice{
+            //         .bg-image('invoice_3');
+            //     }
+            //     &.special{
+            //         .bg-image('special_3');
+            //     }
+            // }
             .text{
                 display:table-cell;
                 width:.56rem;
                 vertical-align:middle;
-                .border-1px(rgba(7,17,27,0.1));
-                font-size:.12rem;
+                .border-1px(rgba(7,17,27,0.3));
+                font-size:.14rem;
             }
         }
     }

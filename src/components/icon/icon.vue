@@ -1,42 +1,26 @@
 <template>
-    <div class="star" :class="starType">
-        <span v-for="itemClass in itemClasses" :class="itemClass" class="star-item"></span>
-    </div>
+    <span :class="[starType,itemClasses]"></span>
 </template>
 
 <script type="text/ecmascript-6">
-    const LENGTH = 5;
-    const CLS_ON = 'on';
-    const CLS_HALF = 'half';
-    const CLS_OFF = 'off';
     export default{
         props: {//父子传数据
             size:{
                 type:Number
             },
-            score:{
+            subscript:{
                 type:Number
             }
         },
+        created(){
+            this.classMap = ['decrease','discount','special','invoice','guarantee']
+        },
         computed:{ //计算属性
             starType(){
-                return 'star-' + this.size;
+                return 'icon-' + this.size;
             },
             itemClasses(){
-                let result = [];
-                let score = Math.floor(this.score*2)/2;
-                let hasDecimal = score % 1 !==0;
-                let integer = Math.floor(score);
-                for(let i=0;i<integer;i++){
-                    result.push(CLS_ON);
-                }
-                if(hasDecimal){
-                    result.push(CLS_HALF);
-                }
-                while(result.length < LENGTH){
-                    result.push(CLS_OFF);
-                }
-                return result;
+                return this.classMap[this.subscript];
             }
         }
     };
@@ -44,71 +28,76 @@
 
 <style  scoped lang="less" rel="stylesheet/less">
     @import "../../common/less/mixin.less";
-    .star{
-        font-size: 0;
-        .star-item{
-            display: inline-block;
-            background-repeat: no-repeat;
+    .icon-1{
+        display: inline-block;
+        vertical-align: top;
+        width: .12rem;
+        height: .12rem;
+        margin-right: .04rem;
+        background-size: .12rem .12rem;
+        background-repeat: no-repeat;
+        &.decrease{
+            .bg-image('decrease_1');
         }
-        &.star-48{
-            .star-item{
-                width: .2rem;
-                height: .2rem;
-                margin-right: .22rem;
-                background-size: .2rem .2rem;
-                &:last-child{
-                    margin-right: 0;
-                }
-                &.on{
-                    .bg-image('star48_on');
-                }
-                &.half{
-                    .bg-image('star48_half');
-                }
-                &.off{
-                    .bg-image('star48_off');
-                }
-            }
+        &.discount{
+            .bg-image('discount_1');
         }
-        &.star-36{
-            .star-item{
-                width: .15rem;
-                height: .15rem;
-                margin-right: .06rem;
-                background-size: .15rem .15rem;
-                &:last-child{
-                    margin-right: 0;
-                }
-                &.on{
-                    .bg-image('star36_on');
-                }
-                &.half{
-                    .bg-image('star36_half');
-                }
-                &.off{
-                    .bg-image('star36_off');
-                }
-            }
+        &.guarantee{
+            .bg-image('guarantee_1');
         }
-        &.star-24{
-            .star-item{
-                width: .1rem;
-                height: .1rem;
-                margin-right: .03rem;
-                background-size: .1rem .1rem;
-                &:last-child{
-                    margin-right: 0;
-                }
-                &.on{
-                    .bg-image('star24_on');
-                }
-                &.half{
-                    .bg-image('star24_half');
-                }
-                &.off{
-                    .bg-image('star24_off');
-                }
-            }
+        &.invoice{
+            .bg-image('invoice_1');
+        }
+        &.special{
+            .bg-image('special_1');
+        }
+    }
+    .icon-2{
+        display:inline-block;
+        vertical-align:top;
+        width:.16rem;
+        height:.16rem;
+        margin-right:.06rem;
+        background-size:.16rem .16rem;
+        background-repeat:no-repeat;
+        &.decrease{
+            .bg-image('decrease_2');
+        }
+        &.discount{
+            .bg-image('discount_2');
+        }
+        &.guarantee{
+            .bg-image('guarantee_2');
+        }
+        &.invoice{
+            .bg-image('invoice_2');
+        }
+        &.special{
+            .bg-image('special_2');
+        }
+    }
+    .icon-3{
+        display:inline-block;
+        width:.12rem;
+        height:.12rem;
+        vertical-align:top;
+        margin-right:.02rem;
+        background-size:.12rem .12rem;
+        background-repeat:no-repeat;
+        &.decrease{
+            .bg-image('decrease_3');
+        }
+        &.discount{
+            .bg-image('discount_3');
+        }
+        &.guarantee{
+            .bg-image('guarantee_3');
+        }
+        &.invoice{
+            .bg-image('invoice_3');
+        }
+        &.special{
+            .bg-image('special_3');
         }
     }
 </style>

@@ -12,7 +12,8 @@
     				{{seller.description}}/{{seller.deliveryTime}}分钟送达
     			</div>
                 <div v-if="seller.supports" class="support">
-                    <span class="icon" :class="classMap[seller.supports[0].type]"></span>
+                    <!-- <span class="icon" :class="classMap[seller.supports[0].type]"></span> -->
+                    <v-icon  :size="1" :subscript="seller.supports[0].type"></v-icon>
                     <span class="text">{{seller.supports[0].description}}</span>
                 </div>
     		</div>
@@ -49,7 +50,8 @@
                     </div>
                     <ul v-if="seller.supports" class="supports">
                         <li class="supports-item" v-for="(item, index) in seller.supports">
-                            <span class="icon" :class="classMap[seller.supports[index].type]"></span>
+                            <!-- <span class="icon" :class="classMap[seller.supports[index].type]"></span> -->
+                            <v-icon  :size="2" :subscript="seller.supports[index].type"></v-icon>
                             <span class="text">{{seller.supports[index].description}}</span>
                         </li>
                     </ul>
@@ -73,8 +75,9 @@
 
 <script type="text/ecmascript-6">
 import star from '../star/star.vue';
+import icon from '../icon/icon.vue';
 export default{
-    //props: ['myMessage'],
+    //props: ['myMessage'],//字符串传送
     props: {
         seller: {
             type: Object
@@ -85,9 +88,9 @@ export default{
             detailShow:false
     	}
     },
-    created(){
-        this.classMap = ['decrease','discount','special','invoice','guarantee']
-    },
+    // created(){
+    //     this.classMap = ['decrease','discount','special','invoice','guarantee']
+    // },
     // mounted(){ //模板编译之后，代替之前ready
     //     this.seller=this.myMessage;
     // },
@@ -100,7 +103,8 @@ export default{
         }
     },
     components:{
-        'star':star
+        'star':star,
+        'v-icon':icon
     }
 
 
@@ -153,30 +157,30 @@ export default{
                 font-size: .16rem;
             }
             .support{
-                .icon{
-                    display: inline-block;
-                    vertical-align: top;
-                    width: .12rem;
-                    height: .12rem;
-                    margin-right: .04rem;
-                    background-size: .12rem .12rem;
-                    background-repeat: no-repeat;
-                    &.decrease{
-                        .bg-image('decrease_1');
-                    }
-                    &.discount{
-                        .bg-image('discount_1');
-                    }
-                    &.guarantee{
-                        .bg-image('guarantee_1');
-                    }
-                    &.invoice{
-                        .bg-image('invoice_1');
-                    }
-                    &.special{
-                        .bg-image('special_1');
-                    }
-                }
+                // .icon{
+                //     display: inline-block;
+                //     vertical-align: top;
+                //     width: .12rem;
+                //     height: .12rem;
+                //     margin-right: .04rem;
+                //     background-size: .12rem .12rem;
+                //     background-repeat: no-repeat;
+                //     &.decrease{
+                //         .bg-image('decrease_1');
+                //     }
+                //     &.discount{
+                //         .bg-image('discount_1');
+                //     }
+                //     &.guarantee{
+                //         .bg-image('guarantee_1');
+                //     }
+                //     &.invoice{
+                //         .bg-image('invoice_1');
+                //     }
+                //     &.special{
+                //         .bg-image('special_1');
+                //     }
+                // }
                 .text{
                     line-height: .14rem;
                     font-size: .14rem;
@@ -309,30 +313,30 @@ export default{
                         &:last-child{
                             margin-bottom:0;
                         }
-                        .icon{
-                            display:inline-block;
-                            width:.16rem;
-                            height:.16rem;
-                            vertical-align:top;
-                            margin-right:.06rem;
-                            background-size:.16rem .16rem;
-                            background-repeat:no-repeat;
-                            &.decrease{
-                                .bg-image('decrease_2');
-                            }
-                            &.discount{
-                                .bg-image('discount_2');
-                            }
-                            &.guarantee{
-                                .bg-image('guarantee_2');
-                            }
-                            &.invoice{
-                                .bg-image('invoice_2');
-                            }
-                            &.special{
-                                .bg-image('special_2');
-                            }
-                        }
+                        // .icon{
+                        //     display:inline-block;
+                        //     width:.16rem;
+                        //     height:.16rem;
+                        //     vertical-align:top;
+                        //     margin-right:.06rem;
+                        //     background-size:.16rem .16rem;
+                        //     background-repeat:no-repeat;
+                        //     &.decrease{
+                        //         .bg-image('decrease_2');
+                        //     }
+                        //     &.discount{
+                        //         .bg-image('discount_2');
+                        //     }
+                        //     &.guarantee{
+                        //         .bg-image('guarantee_2');
+                        //     }
+                        //     &.invoice{
+                        //         .bg-image('invoice_2');
+                        //     }
+                        //     &.special{
+                        //         .bg-image('special_2');
+                        //     }
+                        // }
                         .text{
                             line-height:.16rem;
                             font-size:.14rem;
