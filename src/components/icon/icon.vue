@@ -1,5 +1,5 @@
 <template>
-    <span :class="[starType,itemClasses]"></span>
+    <span class="icon" :class="[starType,itemClasses]"></span>
 </template>
 
 <script type="text/ecmascript-6">
@@ -31,10 +31,10 @@
     .icon-1{
         display: inline-block;
         vertical-align: top;
-        width: .12rem;
-        height: .12rem;
+        width: .14rem;
+        height: .14rem;
         margin-right: .04rem;
-        background-size: .12rem .12rem;
+        background-size: .14rem .14rem;
         background-repeat: no-repeat;
         &.decrease{
             .bg-image('decrease_1');
@@ -78,11 +78,11 @@
     }
     .icon-3{
         display:inline-block;
-        width:.12rem;
-        height:.12rem;
+        width:.14rem;
+        height:.14rem;
         vertical-align:top;
-        margin-right:.02rem;
-        background-size:.12rem .12rem;
+        margin-right:.04rem;
+        background-size:.14rem .14rem;
         background-repeat:no-repeat;
         &.decrease{
             .bg-image('decrease_3');
