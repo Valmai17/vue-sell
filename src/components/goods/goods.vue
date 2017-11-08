@@ -9,7 +9,30 @@
                 </li>
             </ul>
         </div>
-        <div class="foods-wrapper"></div>
+        <div class="foods-wrapper">
+            <ul>
+                <li v-for="item in goods" class="food-list">
+                    <h1 class="title">{{item.name}}</h1>
+                    <ul>
+                        <li v-for="food in item.foods" class="food-item">
+                            <div class="icon"><img :src="food.icon"/></div>
+                            <div class="content">
+                                <h2 class="name">{{food.name}}</h2>
+                                <p class="desc">{{food.description}}</p>
+                                <div class="extra">
+                                    <span>月售{{food.sellCount}}份</span>
+                                    <span>好评率{{food.rating}}%</span>
+                                </div>
+                                <div class="price">
+                                    <span>￥{{food.price}}</span>
+                                    <span v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -28,12 +51,9 @@
         }
     },
     created(){
-        //this.classMap = ['decrease','discount','special','invoice','guarantee'];
-
         axios.get('/api/goods')
         .then(function (res) {
             this.goods = res.data.data;
-            console.log(res.errno);
             console.log(this.goods);
         }.bind(this))
         .catch(function (error) {
@@ -67,28 +87,6 @@
             line-height:.18rem;
             .icon{
                 margin-top:.02rem;
-                // display:inline-block;
-                // width:.12rem;
-                // height:.12rem;
-                // vertical-align:top;
-                // margin-right:.02rem;
-                // background-size:.12rem .12rem;
-                // background-repeat:no-repeat;
-                // &.decrease{
-                //     .bg-image('decrease_3');
-                // }
-                // &.discount{
-                //     .bg-image('discount_3');
-                // }
-                // &.guarantee{
-                //     .bg-image('guarantee_3');
-                // }
-                // &.invoice{
-                //     .bg-image('invoice_3');
-                // }
-                // &.special{
-                //     .bg-image('special_3');
-                // }
             }
             .text{
                 display:table-cell;
