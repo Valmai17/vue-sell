@@ -14,7 +14,7 @@
         <div class="wrapper2">
             <div class="foods-wrapper"> <!--  ref:foods-wrapper -->
                 <ul>
-                    <li v-for="item in goods" class="food-list">
+                    <li v-for="item in goods" class="food-list food-list-hook">
                         <h1 class="title">{{item.name}}</h1>
                         <ul>
                             <li v-for="food in item.foods" class="food-item">
@@ -52,7 +52,8 @@
     // },
     data(){
         return{
-            goods:[]
+            goods:[],
+            listHeight:[]
         }
     },
     created(){
@@ -61,6 +62,7 @@
             this.goods = res.data.data;
             this.$nextTick(() => {
                 this._initScroll();
+                this._calculateHeight();
             });
             console.log(this.goods);
         }.bind(this))
@@ -72,6 +74,8 @@
         _initScroll(){
             let scroll1 = new BScroll('.wrapper1');
             let scroll2 = new BScroll('.wrapper2');
+        },
+        _calculateHeight(){
         }
     },
     components:{
