@@ -3,7 +3,7 @@
         <div class="menuWrapper">
             <div class="menu-wrapper"  ref:menuWrapper> <!-- ref:menu-wrapper -->
                 <ul>
-                    <li v-for="item in goods" class="menu-item">
+                    <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}">
                         <span class="text  border-1px">
                             <v-icon v-if="item.type>0" :size="3" :subscript="item.type"></v-icon>{{item.name}}
                         </span>
@@ -73,13 +73,13 @@
     },
     methods:{
         _initScroll(){
-            this.menuWrapper = new BScroll(document.querySelector('.menuWrapper'),{});
+            this.menuScroll = new BScroll(document.querySelector('.menuWrapper'),{});
 
-            this.foodsWrapper = new BScroll(document.querySelector('.foodsWrapper'),{
+            this.foodsScroll = new BScroll(document.querySelector('.foodsWrapper'),{
                 probeType:3
             });
 
-            this.foodsScroll.on('scroll',(pos) => {
+            this.foodsScroll.on('scroll',(pro) => {
                 this.scrollY = Math.abs(Math.round(pro.y));
             });
         },
@@ -92,6 +92,18 @@
               height += item.clientHeight;
               this.listHeight.push(height);
             }
+        }
+    },
+    computed:{
+        currentIndex(){
+            for(let i=0;i<this.listHeight.length;i++){
+                let height1 = this.listHeight[i];
+                let height2 = this.listHeight[i+1];
+                if(!height2 || (this.scrollY > height1 && this.scrollY < height2)){
+                    return i;
+                }
+            }
+            return 0;
         }
     },
     components:{
@@ -119,6 +131,16 @@
             width:.56rem;
             padding:0 .12rem;
             line-height:.18rem;
+            &.current{
+                position:relative;
+                z-index: 10;
+                margin-top:-1px;
+                background:#fff;
+                font-weight:700;
+                .text{
+                    .border-none();
+                }
+            }
             .icon{
                 margin-top:.02rem;
             }
