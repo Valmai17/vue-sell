@@ -3,7 +3,7 @@
         <div class="menuWrapper">
             <div class="menu-wrapper"  ref:menuWrapper> <!-- ref:menu-wrapper -->
                 <ul>
-                    <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}">
+                    <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)">
                         <span class="text  border-1px">
                             <v-icon v-if="item.type>0" :size="3" :subscript="item.type"></v-icon>{{item.name}}
                         </span>
@@ -72,11 +72,33 @@
         });
     },
     methods:{
+        selectMenu(index,event){
+            if(!event._constructed){
+                return ;
+            }
+            let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
+            let el = foodList[index];
+            console.log(el);
+            this.foodsScroll.scrollToElement(el,300);
+            //参数：
+                //{DOM | String} el 滚动到的目标元素, 如果是字符串，则内部会尝试调用 querySelector 转换成 DOM 对象。
+                //{Number} time 滚动动画执行的时长（单位 ms）
+                //{Number | Boolean} offsetX 相对于目标元素的横轴偏移量，如果设置为 true，则滚到目标元素的中心位置
+                //{Number | Boolean} offsetY 相对于目标元素的纵轴偏移量，如果设置为 true，则滚到目标元素的中心位置
+                //{Object} easing 缓动函数，一般不建议修改，如果想修改，参考源码中的 ease.js 里的写法
+                //返回值：无
+                //作用：滚动到指定的目标元素。
+        },
         _initScroll(){
-            this.menuScroll = new BScroll(document.querySelector('.menuWrapper'),{});
+            this.menuScroll = new BScroll(document.querySelector('.menuWrapper'),{
+                click:true
+            });
 
             this.foodsScroll = new BScroll(document.querySelector('.foodsWrapper'),{
-                probeType:3
+                probeType:3,
+                //当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；当 probeType 为 2 的时候，会在屏幕滑动的过程中实时的派发 scroll 事件；当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。如果没有设置该值，其默认值为 0，即不派发 scroll 事件。
+
+                //scrollbar:true //开启滚动条
             });
 
             this.foodsScroll.on('scroll',(pro) => {
@@ -99,7 +121,7 @@
             for(let i=0;i<this.listHeight.length;i++){
                 let height1 = this.listHeight[i];
                 let height2 = this.listHeight[i+1];
-                if(!height2 || (this.scrollY > height1 && this.scrollY < height2)){
+                if(!height2 || (this.scrollY >= height1 && this.scrollY < height2)){
                     return i;
                 }
             }
