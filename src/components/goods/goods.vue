@@ -37,6 +37,7 @@
                 </ul>
             </div>
         </div>
+        <shopcart></shopcart>
     </div>
 </template>
 
@@ -44,6 +45,7 @@
   import axios from 'axios';
   import icon from '../icon/icon.vue';
   import BScroll from 'better-scroll';
+  import shopcart from '../shopcart/shopcart.vue';
   export default{
     // props:{
     //     seller:{
@@ -129,7 +131,8 @@
         }
     },
     components:{
-        'v-icon':icon
+        'v-icon':icon,
+        'shopcart':shopcart
     }
   };
 </script>
