@@ -3,11 +3,12 @@
     <div class="content">
         <div class="content-left">
             <div class="logo-wrapper">
-                <div class="logo">
-                    <span class="icon-shopping_cart"></span>
+                <div class="logo" :class="{'highlight':totalCount}">
+                    <i class="icon-shopping_cart" :class="{'highlight':totalCount}"></i>
                 </div>
+                <div v-show="totalCount>0" class="num">{{totalCount}}</div>
             </div>
-            <div class="price">0元</div>
+            <div class="price" :class="{'highlight':totalCount}">￥{{totalPrice}}</div>
             <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
         </div>
         <div class="content-right">
@@ -23,7 +24,7 @@
             selectFoods:{
                 type:Array,
                 default(){
-                    return [];
+                    return [{price:10,count:1}];
                 }
             },
             deliveryPrice:{
@@ -39,7 +40,20 @@
 
         },
         computed:{ //计算属性
-
+            totalPrice(){
+                let total = 0;
+                this.selectFoods.forEach((food)=>{
+                    total += food.price*food.count;
+                });
+                return total;
+            },
+            totalCount(){
+                let count = 0;
+                this.selectFoods.forEach((food)=>{
+                    count += food.count;
+                });
+                return count;
+            }
         }
     };
 </script>
@@ -78,11 +92,32 @@
                     border-radius:50%;
                     background:#2b343c;
                     text-align: center;
+                    &.highlight{
+                        background:rgb(0,160,220);
+                    }
                     .icon-shopping_cart{
                         line-height:.44rem;
                         font-size:.24rem;
                         color:#80858a;
+                        &.highlight{
+                            color:#fff;
+                        }
                     }
+                }
+                .num{
+                    position:absolute;
+                    top:0;
+                    right:0;
+                    width:.24rem;
+                    height:.16rem;
+                    line-height:.16rem;
+                    text-align:center;
+                    border-radius:.16rem;
+                    font-size:.1rem;
+                    font-weight:700;
+                    color:#fff;
+                    background:rgb(240,20,20);
+                    box-shadow: 0 .04rem .08rem 0 rgba(0,0,0,0.4);
                 }
             }
             .price{
@@ -95,6 +130,9 @@
                 border-right:1px solid rgba(255,255,255,0.3);
                 font-size:.16rem;
                 font-weight:700;
+                &.highlight{
+                    color:#fff;
+                }
             }
             .desc{
                 display:inline-block;
