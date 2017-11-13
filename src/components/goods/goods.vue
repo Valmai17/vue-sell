@@ -37,6 +37,7 @@
                 </ul>
             </div>
         </div>
+        <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
     </div>
 </template>
 
@@ -44,12 +45,13 @@
   import axios from 'axios';
   import icon from '../icon/icon.vue';
   import BScroll from 'better-scroll';
+  import shopcart from '../shopcart/shopcart.vue';
   export default{
-    // props:{
-    //     seller:{
-    //         type:Object
-    //     }
-    // },
+    props:{
+        seller:{
+            type:Object
+        }
+    },
     data(){
         return{
             goods:[],
@@ -129,7 +131,8 @@
         }
     },
     components:{
-        'v-icon':icon
+        'v-icon':icon,
+        'shopcart':shopcart
     }
   };
 </script>
@@ -143,101 +146,106 @@
     bottom:.46rem;
     width: 100%;
     overflow:hidden;
-    .menu-wrapper{
-        flex:0 0 .8rem;
-        width:.8rem;
-        background:#f3f5f7;
-        .menu-item{
-            display:table;
-            height:.54rem;
-            width:.56rem;
-            padding:0 .12rem;
-            line-height:.18rem;
-            &.current{
-                position:relative;
-                z-index: 10;
-                margin-top:-1px;
-                background:#fff;
-                font-weight:700;
-                .text{
-                    .border-none();
-                }
-            }
-            .icon{
-                margin-top:.02rem;
-            }
-            .text{
-                display:table-cell;
+    .menuWrapper{
+        .menu-wrapper{
+            flex:0 0 .8rem;
+            width:.8rem;
+            background:#f3f5f7;
+            .menu-item{
+                display:table;
+                height:.54rem;
                 width:.56rem;
-                vertical-align:middle;
-                .border-1px(rgba(7,17,27,0.3));
-                font-size:.14rem;
+                padding:0 .12rem;
+                line-height:.18rem;
+                &.current{
+                    position:relative;
+                    z-index: 10;
+                    margin-top:-1px;
+                    background:#fff;
+                    font-weight:700;
+                    .text{
+                        .border-none();
+                    }
+                }
+                .icon{
+                    margin-top:.02rem;
+                }
+                .text{
+                    display:table-cell;
+                    width:.56rem;
+                    vertical-align:middle;
+                    .border-1px(rgba(7,17,27,0.3));
+                    font-size:.14rem;
+                }
             }
         }
     }
-    .foods-wrapper{
-        flex:1;
-        .title{
-            padding-left:.14rem;
-            height:.26rem;
-            line-height:.26rem;
-            border-left:.02rem solid #d9dde1;
-            font-size:.14rem;
-            color:rgb(147,153,159);
-            background:#f3f5f7;
-        }
-        .food-item{
-            display:flex;
-            margin:.18rem;
-            padding-bottom:.18rem;
-            .border-1px(rgba(7,17,27,0.3));
-            &:last-child{
-                .border-none;
-                margin-bottom: 0;
+    .foodsWrapper{
+        .foods-wrapper{
+            flex:1;
+            .title{
+                padding-left:.14rem;
+                height:.26rem;
+                line-height:.26rem;
+                border-left:.02rem solid #d9dde1;
+                font-size:.14rem;
+                color:rgb(147,153,159);
+                background:#f3f5f7;
             }
-            .icon{
-                flex:0 0 .7rem;
-                margin-right:.1rem;
-            }
-            .content{
-                flex:1;
-                .name{
-                    margin:.0 0 .04rem 0;
-                    height:.16rem;
-                    line-height:.16rem;
-                    font-size:.16rem;
-                    color:rgb(7,17,27);
+            .food-item{
+                display:flex;
+                margin:.18rem;
+                padding-bottom:.18rem;
+                .border-1px(rgba(7,17,27,0.3));
+                &:last-child{
+                    .border-none;
+                    margin-bottom: 0;
                 }
-                .desc,.extra{
-                    line-height:.12rem;
-                    font-size:.12rem;
-                    color:rgb(147,153,159);
+                .icon{
+                    flex:0 0 .7rem;
+                    margin-right:.1rem;
                 }
-                .desc{
-                    margin-bottom:.06rem;
-                }
-                .extra{
-                    .count{
-                        margin-right:.12rem;
-                    }
-                }
-                .price{
-                    font-weight:700;
-                    line-height:.24rem;
-                    .now{
-                        margin-right:.18rem;
+                .content{
+                    flex:1;
+                    .name{
+                        margin:.0 0 .04rem 0;
+                        height:.16rem;
+                        line-height:.16rem;
                         font-size:.16rem;
-                        color:rgb(240,20,20);
+                        color:rgb(7,17,27);
                     }
-                    .old{
-                        text-decoration: line-through;
+                    .desc,.extra{
+                        line-height:.12rem;
                         font-size:.12rem;
                         color:rgb(147,153,159);
                     }
+                    .desc{
+                        margin-bottom:.06rem;
+                    }
+                    .extra{
+                        .count{
+                            margin-right:.12rem;
+                        }
+                    }
+                    .price{
+                        font-weight:700;
+                        line-height:.24rem;
+                        .now{
+                            margin-right:.18rem;
+                            font-size:.16rem;
+                            color:rgb(240,20,20);
+                        }
+                        .old{
+                            text-decoration: line-through;
+                            font-size:.12rem;
+                            color:rgb(147,153,159);
+                        }
+                    }
                 }
             }
         }
     }
+
 }
 
 </style>

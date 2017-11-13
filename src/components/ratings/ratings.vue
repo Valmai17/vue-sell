@@ -1,6 +1,16 @@
 <template>
-    <div class="header">
+    <div class="ratings">
     	我是ratings
+        我是ratings
+        我是ratings
+        我是ratings我是ratings我是ratings我是ratings我是ratings
+        我是ratings
+        我是ratings
+        我是ratings
+        我是ratings
+        我是ratings
+        我是ratings
+        我是ratings
     </div>
 </template>
 
@@ -9,4 +19,8 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
+.ratings{
+    line-height: .25rem;
+    padding:20px;
+}
 </style>
