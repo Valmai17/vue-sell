@@ -12,7 +12,7 @@
             <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
         </div>
         <div class="content-right">
-            <div class="pay">￥{{minPrice}}元起送</div>
+            <div class="pay" :class="payClass">{{payDesc}}</div>
         </div>
     </div>
     </div>
@@ -24,7 +24,7 @@
             selectFoods:{
                 type:Array,
                 default(){
-                    return [{price:10,count:1}];
+                    return [{price:60,count:1}];
                 }
             },
             deliveryPrice:{
@@ -53,6 +53,24 @@
                     count += food.count;
                 });
                 return count;
+            },
+            payDesc(){
+                if(this.totalPrice === 0){
+                    return `￥${this.minPrice}元起送`;
+                }else if(this.totalPrice < this.minPrice){
+                    let diff = this.minPrice - this.totalPrice;
+                    return `还差￥${diff}元起送`;
+                }else{
+                    return '去结算';
+                }
+            },
+            payClass(){
+                if(this.totalPrice < this.minPrice){
+                    let diff = this.minPrice - this.totalPrice;
+                    return 'not-enough';
+                }else{
+                    return 'enough';
+                }
             }
         }
     };
@@ -128,7 +146,7 @@
                 padding-right:.12rem;
                 box-sizing:border-box;
                 border-right:1px solid rgba(255,255,255,0.3);
-                font-size:.16rem;
+                font-size:.18rem;
                 font-weight:700;
                 &.highlight{
                     color:#fff;
@@ -149,9 +167,16 @@
                 height:.48rem;
                 line-height:.48rem;
                 text-align:center;
-                font-size:.14rem;
+                font-size:.12rem;
                 font-weight:700;
                 background:#2b333b;
+                &.not-enough{
+                    background:#2b333b;
+                }
+                &.enough{
+                    background:#00b43c;
+                    color:#fff;
+                }
             }
         }
     }
