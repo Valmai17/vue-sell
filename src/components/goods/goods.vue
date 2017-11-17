@@ -30,6 +30,9 @@
                                         <span class="now">￥{{food.price}}</span>
                                         <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                                     </div>
+                                    <div class="cartcontrol-wrapper">
+                                        <cartcontrol :food="food"></cartcontrol>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -46,6 +49,7 @@
   import icon from '../icon/icon.vue';
   import BScroll from 'better-scroll';
   import shopcart from '../shopcart/shopcart.vue';
+  import cartcontrol from '../cartcontrol/cartcontrol.vue';
   export default{
     props:{
         seller:{
@@ -98,6 +102,7 @@
 
             this.foodsScroll = new BScroll(document.querySelector('.foodsWrapper'),{
                 probeType:3,
+                click:true,
                 //当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；当 probeType 为 2 的时候，会在屏幕滑动的过程中实时的派发 scroll 事件；当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。如果没有设置该值，其默认值为 0，即不派发 scroll 事件。
 
                 //scrollbar:true //开启滚动条
@@ -132,7 +137,8 @@
     },
     components:{
         'v-icon':icon,
-        'shopcart':shopcart
+        'shopcart':shopcart,
+        'cartcontrol':cartcontrol
     }
   };
 </script>
@@ -240,6 +246,11 @@
                             font-size:.12rem;
                             color:rgb(147,153,159);
                         }
+                    }
+                    .cartcontrol-wrapper{
+                        position:absolute;
+                        bottom:0;
+                        right:0;
                     }
                 }
             }
