@@ -40,7 +40,7 @@
                 </ul>
             </div>
         </div>
-        <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+        <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
     </div>
 </template>
 
@@ -121,6 +121,14 @@
               height += item.clientHeight;
               this.listHeight.push(height);
             }
+        },
+        _drop(target){
+            this.$refs.shopcart.drop(target);
+        }
+    },
+    events:{//派发的事件
+        'cart.add'(target){//添加商品，派发购物小球的事件
+            this._drop(target);
         }
     },
     computed:{
@@ -133,6 +141,17 @@
                 }
             }
             return 0;
+        },
+        selectFoods(){
+            let foods = [];
+            this.goods.forEach((good)=>{
+                good.foods.forEach((food)=>{
+                    if(food.count){
+                        foods.push(food);
+                    }
+                })
+            });
+            return foods;
         }
     },
     components:{

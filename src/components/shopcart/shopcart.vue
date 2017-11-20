@@ -14,6 +14,12 @@
         <div class="content-right">
             <div class="pay" :class="payClass">{{payDesc}}</div>
         </div>
+        <div class="ball-container">
+            <!-- <transition name="drop"> -->
+                <div v-for="ball in balls" v-show="ball.show" class="ball"></div>
+            <!-- </transition> -->
+            <div class="inner"></div>
+        </div>
     </div>
     </div>
 </template>
@@ -24,7 +30,7 @@
             selectFoods:{
                 type:Array,
                 default(){
-                    return [{price:60,count:1}];
+                    return [];
                 }
             },
             deliveryPrice:{
@@ -35,6 +41,17 @@
                 type:Number,
                 default:0
             },
+        },
+        data(){
+            return {
+                balls:[
+                    {show:false},
+                    {show:false},
+                    {show:false},
+                    {show:false},
+                    {show:false}
+                ]
+            }
         },
         created(){
 
@@ -71,6 +88,11 @@
                 }else{
                     return 'enough';
                 }
+            }
+        },
+        methods:{
+            drop(el){
+                console.log(el);
             }
         }
     };
@@ -178,6 +200,24 @@
                     color:#fff;
                 }
             }
+        }
+    }
+    .ball-container{
+        .ball{
+            position:fixed;
+            left:.32rem;
+            bottom:.22rem;
+            z-index:200;
+            // &.drop-transition{
+            //     transition:all 0.4s;
+            //     .inner{
+            //         width:.16rem;
+            //         height:.16rem;
+            //         border-radius:50%;
+            //         background:rgb(0,160,220);
+            //         transition:all 0.4s;
+            //     }
+            // }
         }
     }
 }

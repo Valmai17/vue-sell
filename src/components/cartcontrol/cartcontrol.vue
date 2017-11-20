@@ -34,6 +34,7 @@
                 }else{
                     this.food.count ++;
                 }
+                this.$dispatch('cart.add',event.tranget);//派发事件cart.add，用event.tranget传送DOM对象
             },
             decreaseCart(event){
                 if(!event._constructed){//防止PC端触发两次点击事件
@@ -126,8 +127,8 @@
     .cart-add{
         display: inline-block;
         padding:.06rem;
-        line-height: .26rem;
-        font-size: .26rem;
+        line-height: .24rem;
+        font-size: .24rem;
         color:rgb(0,160,220);
     }
 }
