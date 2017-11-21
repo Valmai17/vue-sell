@@ -15,10 +15,11 @@
             <div class="pay" :class="payClass">{{payDesc}}</div>
         </div>
         <div class="ball-container">
-            <!-- <transition name="drop"> -->
-                <div v-for="ball in balls" v-show="ball.show" class="ball"></div>
-            <!-- </transition> -->
-            <div class="inner"></div>
+                <div v-for="ball in balls" v-show="ball.show" class="ball">
+                    <transition name="drop">
+                        <div class="inner"></div>
+                    </transition>
+                </div>
         </div>
     </div>
     </div>
@@ -92,7 +93,13 @@
         },
         methods:{
             drop(el){
-                console.log(el);
+                for(let i=0;i<this.balls.length;i++){
+                    let ball = this.balls[i];
+                    if(!ball.show){
+                        ball.show = true;
+                        ball.el = el;
+                    }
+                }
             }
         }
     };
@@ -208,16 +215,16 @@
             left:.32rem;
             bottom:.22rem;
             z-index:200;
-            // &.drop-transition{
-            //     transition:all 0.4s;
-            //     .inner{
-            //         width:.16rem;
-            //         height:.16rem;
-            //         border-radius:50%;
-            //         background:rgb(0,160,220);
-            //         transition:all 0.4s;
-            //     }
-            // }
+            &.drop-transition{
+                transition:all 0.4s;
+                .inner{
+                    width:.16rem;
+                    height:.16rem;
+                    border-radius:50%;
+                    background:rgb(0,160,220);
+                    transition:all 0.4s;
+                }
+            }
         }
     }
 }

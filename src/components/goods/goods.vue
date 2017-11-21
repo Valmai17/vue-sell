@@ -84,7 +84,6 @@
             }
             let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
             let el = foodList[index];
-            console.log(el);
             this.foodsScroll.scrollToElement(el,300);
             //参数：
                 //{DOM | String} el 滚动到的目标元素, 如果是字符串，则内部会尝试调用 querySelector 转换成 DOM 对象。
@@ -126,11 +125,16 @@
             this.$refs.shopcart.drop(target);
         }
     },
-    events:{//派发的事件
-        'cart.add'(target){//添加商品，派发购物小球的事件
+    mounted(){//派发的事件
+        this.$root.eventHub.$on('add',function(target){
             this._drop(target);
-        }
+        }.bind(this));
     },
+    // events:{//派发的事件
+    //     'cart.add'(target){//添加商品，派发购物小球的事件
+    //         this._drop(target);
+    //     }
+    // },
     computed:{
         currentIndex(){
             for(let i=0;i<this.listHeight.length;i++){

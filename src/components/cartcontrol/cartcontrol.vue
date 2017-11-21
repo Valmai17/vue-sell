@@ -11,15 +11,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import Vue from 'vue';
+    import Vue from 'vue';//为了使用Vue.set 而引入
     export default{
         props: {//父子传数据
             food:{
                 type:Object
             }
-        },
-        created(){
-
         },
         computed:{ //计算属性
         },
@@ -34,7 +31,7 @@
                 }else{
                     this.food.count ++;
                 }
-                this.$dispatch('cart.add',event.tranget);//派发事件cart.add，用event.tranget传送DOM对象
+                this.$root.eventHub.$emit('add',event.target);
             },
             decreaseCart(event){
                 if(!event._constructed){//防止PC端触发两次点击事件
