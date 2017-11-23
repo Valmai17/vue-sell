@@ -122,7 +122,11 @@
             }
         },
         _drop(target){
-            this.$refs.shopcart.drop(target);
+            // 体验优化,异步执行下落动画
+            this.$nextTick(() => {
+            //调用 shopcar 组件中的 drop 方法，向 shopcar组件 传入当前点击的 dom 对象
+                this.$refs.shopcart.drop(target);
+            });
         }
     },
     mounted(){//派发的事件

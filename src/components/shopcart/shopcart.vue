@@ -15,11 +15,15 @@
             <div class="pay" :class="payClass">{{payDesc}}</div>
         </div>
         <div class="ball-container">
-                <div v-for="ball in balls" v-show="ball.show" class="ball">
-                    <transition name="drop">
-                        <div class="inner"></div>
-                    </transition>
-                </div>
+            <div v-for="ball in balls">
+                <!-- 过度钩子函数 -->
+                <transition name="drop" v-on:before-enter="beforEnter" v-on:enter="enter" v-on:after-enter="afterEnter">
+                    <!--  外层纵向运动，内层横向运动-->
+                    <div class="ball" v-show="ball.show">
+                        <div class="inner inner-hook"></div>
+                    </div>
+                </transition>
+            </div>
         </div>
     </div>
     </div>
@@ -51,28 +55,29 @@
                     {show:false},
                     {show:false},
                     {show:false}
-                ]
+                ],
+                dropBall:[]
             }
         },
         created(){
 
         },
         computed:{ //计算属性
-            totalPrice(){
+            totalPrice(){//商品总价格
                 let total = 0;
                 this.selectFoods.forEach((food)=>{
                     total += food.price*food.count;
                 });
                 return total;
             },
-            totalCount(){
+            totalCount(){//商品个数
                 let count = 0;
                 this.selectFoods.forEach((food)=>{
                     count += food.count;
                 });
                 return count;
             },
-            payDesc(){
+            payDesc(){//右侧显示实际费用
                 if(this.totalPrice === 0){
                     return `￥${this.minPrice}元起送`;
                 }else if(this.totalPrice < this.minPrice){
@@ -82,7 +87,7 @@
                     return '去结算';
                 }
             },
-            payClass(){
+            payClass(){//右侧样式
                 if(this.totalPrice < this.minPrice){
                     let diff = this.minPrice - this.totalPrice;
                     return 'not-enough';
@@ -92,16 +97,66 @@
             }
         },
         methods:{
-            drop(el){
+            drop(el){//购物小球遍历
                 for(let i=0;i<this.balls.length;i++){
                     let ball = this.balls[i];
                     if(!ball.show){
                         ball.show = true;
                         ball.el = el;
+                        this.dropBall.push(ball);
+                        return;
                     }
                 }
-            }
-        }
+            },
+            beforEnter(el){//动画enter之前
+                let count = this.balls.length;
+                while(count--){
+                    let ball = this.balls[count];
+                    if(ball.show){
+                        console.log(ball.el);
+                        let rect = ball.el.getBoundingClientRect();// 点击的+号图标相对于视窗的位置集合。集合中有top, right, bottom, left等属性
+                        let x = (rect.left/200 - 0.32);
+                        let y = -(window.innerHeight/200 - rect.top/200-0.22);
+
+                        console.log(window.innerHeight);
+                        console.log(rect.left/200);
+                        console.log(rect.top/200);
+                        console.log(x);
+                        console.log(y);
+
+                        el.style.display = '';
+                        el.style.webkitTransform = `translate3d(0,${y}rem,0)`;
+                        el.style.transform = `translate3d(0,${y}rem,0)`;
+
+                        // el.style.webkitTransform = 'translate3d(0,-1rem,0)';
+                        // el.style.transform = 'translate3d(0,-1rem,0)';
+
+                        let inner = el.getElementsByClassName('inner-hook')[0];
+                        inner.style.webkitTransform = `translate3d(${x}rem,0,0)`;
+                        inner.style.transform = `translate3d(${x}rem,0,0)`;
+                    }
+                }
+            },
+            enter(el){//动画enter进入
+                /* eslint-disable no-unuseed-vars */  //防止eslint报错
+                let rf = el.offsetHeight;
+                this.$nextTick(()=>{
+                    el.style.webkitTransform = 'translate3d(0,0rem,0)';
+                    el.style.transform = 'translate3d(0,0,0)';
+                    let inner = el.getElementsByClassName('inner-hook')[0];
+                    inner.style.webkitTransform = 'translate3d(0,0,0)';
+                    inner.style.transform = 'translate3d(0,0,0)';
+                })
+            },
+            afterEnter(el){//动画进入之后
+                let ball = this.dropBall.shift();//把数组的第一个元素从其中删除,并返回第一个元素的值
+                if(ball){
+                    ball.show = false;
+                    el.style.display = 'none';
+                }
+            },
+        },
+
     };
 </script>
 
@@ -215,15 +270,15 @@
             left:.32rem;
             bottom:.22rem;
             z-index:200;
-            &.drop-transition{
-                transition:all 0.4s;
-                .inner{
-                    width:.16rem;
-                    height:.16rem;
-                    border-radius:50%;
-                    background:rgb(0,160,220);
-                    transition:all 0.4s;
-                }
+            //y 轴 贝塞尔曲线
+            transition:all 0.5s cubic-bezier(0.49,-0.29,0.75,0.41);
+            //内从做横向运动
+            .inner{
+                width:.16rem;
+                height:.16rem;
+                border-radius:50%;
+                background:rgb(0,160,220);
+                transition:all 0.5s linear;//x 轴只需要线性缓动
             }
         }
     }
