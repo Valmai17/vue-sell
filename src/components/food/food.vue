@@ -1,7 +1,16 @@
 <template>
-    <div v-show="showFlag" class="food">
-
-    </div>
+    <transition name="move">
+        <div v-show="showFlag" class="food">
+        <div class="food-content">
+            <div class="image-header">
+                <img :src="food.image"/>
+                <div class="back" @click="hide">
+                    <i class="icon-arrow_lift"></i>
+                </div>
+            </div>
+        </div>
+        </div>
+    </transition>
 </template>
 <script type="text/ecmascript-6">
     export default{
@@ -18,6 +27,9 @@
         methods: {
             show() {
                 this.showFlag = true;
+            },
+            hide(){
+                this.showFlag = false;
             }
         }
     }
@@ -31,5 +43,36 @@
         z-index: 30;
         width: 100%;
         background: #fff;
+        opacity:1;
+        transition:all 0.2s linear;
+        transform:translate3d(0,0,0);
+        &.move-enter,&.move-leave-active{
+            transform:translate3d(100%,0,0);
+            opacity: 0;
+        }
+        .image-header{
+            position:relative;
+            width:100%;
+            height:0;
+            padding-top:100%;
+            img{
+                position:absolute;
+                left:0;
+                top: 0;
+                width:100%;
+                height:100%;
+            }
+            .back{
+                position:absolute;
+                top:.1rem;
+                left: 0;
+                .icon-arrow_lift{
+                    display: block;
+                    padding:.1rem;
+                    font-size:.2rem;
+                    color:#fff;
+                }
+            }
+        }
     }
 </style>

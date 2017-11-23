@@ -17,7 +17,7 @@
                     <li v-for="item in goods" class="food-list food-list-hook">
                         <h1 class="title">{{item.name}}</h1>
                         <ul>
-                            <li v-for="food in item.foods" class="food-item">
+                            <li @click="selectFood(food,$event)" v-for="food in item.foods" class="food-item">
                                 <div class="icon"><img style="width:.7rem;height:.7rem;" :src="food.icon"/></div>
                                 <div class="content">
                                     <h2 class="name">{{food.name}}</h2>
@@ -41,6 +41,7 @@
             </div>
         </div>
         <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+        <food :food="selectedFood" ref="food"></food>
     </div>
 </template>
 
@@ -50,6 +51,7 @@
   import BScroll from 'better-scroll';
   import shopcart from '../shopcart/shopcart.vue';
   import cartcontrol from '../cartcontrol/cartcontrol.vue';
+  import food from '../food/food.vue';
   export default{
     props:{
         seller:{
@@ -60,7 +62,8 @@
         return{
             goods:[],
             listHeight:[],
-            scrollY:0
+            scrollY:0,
+            selectedFood:{}
         }
     },
     created(){
@@ -78,7 +81,7 @@
         });
     },
     methods:{
-        selectMenu(index,event){
+        selectMenu(index,event) {
             if(!event._constructed){
                 return ;
             }
@@ -93,6 +96,13 @@
                 //{Object} easing 缓动函数，一般不建议修改，如果想修改，参考源码中的 ease.js 里的写法
                 //返回值：无
                 //作用：滚动到指定的目标元素。
+        },
+        selectFood(food,event) {
+            if(!event._constructed){
+                return ;
+            }
+            this.selectedFood = food;
+            this.$refs.food.show();
         },
         _initScroll(){
             this.menuScroll = new BScroll(document.querySelector('.menuWrapper'),{
@@ -134,11 +144,6 @@
             this._drop(target);
         }.bind(this));
     },
-    // events:{//派发的事件
-    //     'cart.add'(target){//添加商品，派发购物小球的事件
-    //         this._drop(target);
-    //     }
-    // },
     computed:{
         currentIndex(){
             for(let i=0;i<this.listHeight.length;i++){
@@ -165,7 +170,8 @@
     components:{
         'v-icon':icon,
         'shopcart':shopcart,
-        'cartcontrol':cartcontrol
+        'cartcontrol':cartcontrol,
+        'food':food
     }
   };
 </script>
