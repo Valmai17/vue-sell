@@ -48,39 +48,6 @@
 <style  scoped lang="less" rel="stylesheet/less">
 .cartcontrol{
     font-size: 0;
-    // 弹层动画样式
-    // .move-enter-active, .move-leave-active {
-    //     transition: all 0.5s;
-    //     transform:translate3D(0,0,0);
-    //     .inner{
-    //         transition: all .25s linear;
-    //         transform:rotate(0);
-    //     }
-    // }
-    // .move-enter, .move-leave-to{
-    //     opacity: 0;
-    //     transform:translate3D(.24rem,0,0);
-    //     .inner{
-    //         transition: all .25s linear;
-    //         transform:rotate(180);
-    //     }
-    // }
-    // .cart-decrease{
-    //     display: inline-block;
-    //     padding:.06rem;
-
-    //     .inner{
-    //         display:inline-block;
-    //         line-height: .26rem;
-    //         font-size: .26rem;
-    //         color:rgb(0,160,220);
-
-    //     }
-    // }
-
-
-
-
     .cart-decrease{
       display:inline-block;
       padding:.06rem;
@@ -105,12 +72,6 @@
         }
       }
     }
-
-
-
-
-
-
     .cart-count{
         display: inline-block;
         vertical-align: top;
