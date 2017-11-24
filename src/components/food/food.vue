@@ -19,14 +19,16 @@
                         <span class="now">￥{{food.price}}</span>
                         <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                     </div>
+                    <div class="cartcontrol-wrapper">
+                        <cartcontrol :food="food"></cartcontrol>
+                    </div>
+                    <transition name="fade">
+                        <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count || food.count===0">加入购物车</div>
+                    </transition>
                 </div>
-                <div class="cartcontrol-wrapper">
-                    <cartcontrol :food="food"></cartcontrol>
-                </div>
-                <transition name="fade">
-                    <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count || food.count===0">加入购物车</div>
-                </transition>
+                <split></split>
             </div>
+
         </div>
     </transition>
 </template>
@@ -34,6 +36,7 @@
   import Vue from 'vue';
   import BScroll from 'better-scroll';
   import cartcontrol from '../cartcontrol/cartcontrol.vue';
+  import split from '../split/split.vue';
     export default{
         props:{
             food:{
@@ -70,7 +73,8 @@
             }
         },
         components:{
-            'cartcontrol':cartcontrol
+            'cartcontrol':cartcontrol,
+            'split':split
         }
     }
 </script>
@@ -115,6 +119,7 @@
             }
         }
         .content{
+            position:relative;
             padding:.18rem;
             .title{
                 line-height: .18rem;
@@ -150,30 +155,31 @@
                     color:rgb(147,153,159);
                 }
             }
-        }
-        .cartcontrol-wrapper{
-            position:absolute;
-            bottom:.12rem;
-            right: .12rem;
-        }
-        .buy{
-            position:absolute;
-            bottom:.18rem;
-            right: .18rem;
-            z-index:10;
-            height:.26rem;
-            line-height:.26rem;
-            padding:0 .14rem;
-            box-sizing: border-box;
-            border-radius: .12rem;
-            font-size:.14rem;
-            color:#fff;
-            background:rgb(0,160,220);
-            opacity:1;
-            transition:all 0.4s;
-            &.fade-enter,&.fade-leave-active{
-                opacity: 0;
+            .cartcontrol-wrapper{
+                position:absolute;
+                bottom:.12rem;
+                right: .12rem;
+            }
+            .buy{
+                position:absolute;
+                bottom:.18rem;
+                right: .18rem;
+                z-index:10;
+                height:.26rem;
+                line-height:.26rem;
+                padding:0 .14rem;
+                box-sizing: border-box;
+                border-radius: .12rem;
+                font-size:.14rem;
+                color:#fff;
+                background:rgb(0,160,220);
+                opacity:1;
+                transition:all 0.4s;
+                &.fade-enter,&.fade-leave-active{
+                    opacity: 0;
+                }
             }
         }
+
     }
 </style>
