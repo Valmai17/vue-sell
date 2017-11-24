@@ -4,7 +4,7 @@
 <script type="text/ecmascript-6">
     export default {}
 </script>
-<style lang="less">
+<style  scoped lang="less">
     .split{
         width: 100%;
         height: .16rem;

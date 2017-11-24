@@ -10,6 +10,7 @@
                         <i class="icon-arrow_lift"></i>
                     </div>
                 </div>
+                <!-- 商品属性 -->
                 <div class="content">
                     <h1 class="title">{{food.name}}</h1>
                     <div class="detail">
@@ -26,7 +27,22 @@
                         <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count || food.count===0">加入购物车</div>
                     </transition>
                 </div>
+                <split v-show="food.info"></split>
+                <!-- 商品信息 -->
+                <div class="info" v-show="food.info">
+                    <h1 class="title">商品信息</h1>
+                    <p class="text">{{food.info}}</p>
+                </div>
+                <!-- 评价 -->
                 <split></split>
+                <div class="ratings">
+                    <h1 class="title">商品评价</h1>
+                    <ratingselect :selectType="selectType" :onlyContent="onlyContent" :desc="desc" :ratings="food.ratings"></ratingselect>
+                    <!-- <div class="rating-wrapper">
+                        <ul v-show="food.ratings && food.ratings.length"></ul>
+                        <div class="no-rating" v-show="!food.ratings || !food.ratings.length"></div>
+                    </div> -->
+                </div>
             </div>
 
         </div>
@@ -36,7 +52,11 @@
   import Vue from 'vue';
   import BScroll from 'better-scroll';
   import cartcontrol from '../cartcontrol/cartcontrol.vue';
+  import ratingselect from '../ratingselect/ratingselect.vue';
   import split from '../split/split.vue';
+  // const POSITIVE = 0;  //正面评价
+  // const NEGATIVE = 1;  //负面评价
+  const ALL = 2;       //所有评价
     export default{
         props:{
             food:{
@@ -45,12 +65,21 @@
         },
         data(){
             return {
-                showFlag: false
+                showFlag: false,
+                selectType: 2,
+                onlyContent:true,
+                desc:{
+                    all:'全部',
+                    positive:'推荐',
+                    negative:'吐槽'
+                }
             }
         },
         methods: {
             show() {
                 this.showFlag = true;
+                this.selectType = ALL;//默认显示全部评价
+                this.onlyContent = true;
                 this.$nextTick(()=>{
                     if(!this.scroll){
                         this.scroll = new BScroll(this.$refs.food,{
@@ -74,11 +103,12 @@
         },
         components:{
             'cartcontrol':cartcontrol,
-            'split':split
+            'split':split,
+            'ratingselect': ratingselect
         }
     }
 </script>
-<style lang="less">
+<style  scoped lang="less">
     .food{
         position: fixed;
         top:0;
@@ -178,6 +208,30 @@
                 &.fade-enter,&.fade-leave-active{
                     opacity: 0;
                 }
+            }
+        }
+        .info{
+            padding:.18rem;
+            .title{
+                line-height:.18rem;
+                margin-bottom:.06rem;
+                font-size:.18rem;
+                color:rbg(7,17,27);
+            }
+            .text{
+                line-height:.24rem;
+                padding:0 .08rem;
+                font-size:.14rem;
+                color:rgb(77,85,93);
+            }
+        }
+        .ratings{
+            padding-top:.18rem;
+            .title{
+                line-height:.18rem;
+                margin-left:.18rem;
+                font-size:.18rem;
+                color:rbg(7,17,27);
             }
         }
 

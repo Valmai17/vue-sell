@@ -139,7 +139,8 @@
             });
         }
     },
-    mounted(){//派发的事件
+    mounted(){
+        //派发的事件
         this.$root.eventHub.$on('add',function(target){
             this._drop(target);
         }.bind(this));
