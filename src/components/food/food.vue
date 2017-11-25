@@ -37,11 +37,22 @@
                 <split></split>
                 <div class="ratings">
                     <h1 class="title">商品评价</h1>
+                    <!-- 评价分类 -->
                     <ratingselect :selectType="selectType" :onlyContent="onlyContent" :desc="desc" :ratings="food.ratings"></ratingselect>
-                    <!-- <div class="rating-wrapper">
-                        <ul v-show="food.ratings && food.ratings.length"></ul>
-                        <div class="no-rating" v-show="!food.ratings || !food.ratings.length"></div>
-                    </div> -->
+                    <!-- 评价详情 -->
+                    <div class="rating-wrapper">
+                        <ul v-show="food.ratings && food.ratings.length">
+                            <li v-for="rating in food.ratings" class="rating-item">
+                                <div class="user">
+                                    <span class="name">{{rating.username}}</span>
+                                    <img class="avatar" :src="rating.avatar" style="width:.12rem;height:.12rem;"></span>
+                                </div>
+                                <div class="time">{{rating.rateTime}}</div>
+                                <p class="text"><span :class="{'icon-thumb_up':rating.rateType === 0,'icon-thumb_down':rating.rateType === 1}"></span>{{rating.text}}</p>
+                            </li>
+                        </ul>
+                        <div class="no-rating" v-show="!food.ratings || !food.ratings.length">暂无评价</div>
+                    </div>
                 </div>
             </div>
 
@@ -109,6 +120,7 @@
     }
 </script>
 <style  scoped lang="less">
+@import "../../common/less/mixin.less";
     .food{
         position: fixed;
         top:0;
@@ -233,7 +245,53 @@
                 font-size:.18rem;
                 color:rbg(7,17,27);
             }
+            .rating-wrapper{
+                padding:0 .18rem;
+                .rating-item{
+                    position:relative;
+                    padding:.16rem 0;
+                    .border-1px(rgba(7,17,27,0.3));
+                    .user{
+                        position:absolute;
+                        right:0;
+                        top:.16rem;
+                        line-height:.14rem;
+                        font-size:0;
+                        .name{
+                            display:inline-block;
+                            vertical-align: top;
+                            margin-right:.06rem;
+                            font-size:.14rem;
+                            color:rgb(147,153,159);
+                        }
+                        .avatar{
+                            border-radius:50%;
+                        }
+                    }
+                    .time{
+                        margin-bottom:.06rem;
+                        line-height:.14rem;
+                        font-size:.14rem;
+                        color:rgb(147,153,159);
+                    }
+                    .text{
+                        line-height:.16rem;
+                        font-size:.14rem;
+                        color:rgb(7,17,27);
+                        .icon-thumb_up,.icon-thumb_down{
+                            margin-right:.04rem;
+                            line-height:.04rem;
+                            font-size:.14rem;
+                        }
+                        .icon-thumb_up{
+                            color:rgb(0,160,220);
+                        }
+                        .icon-thumb_down{
+                            color:rgb(147,153,159);
+                        }
+                    }
+                }
+            }
         }
-
     }
 </style>
