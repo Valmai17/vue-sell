@@ -5,7 +5,7 @@
             <span @click="select(0,$event)" class="block positive" :class="{'active':selectType === 0}">{{desc.positive}}<span class="count">{{positives.length}}</span></span>
             <span @click="select(1,$event)" class="block negative" :class="{'active':selectType === 1}">{{desc.negative}}<span class="count">{{negative.length}}</span></span>
         </div>
-        <div @click="toggleContent()" class="switch" :class="{'on':onlyContent}">
+        <div @click="toggleContent" class="switch" :class="{'on':onlyContent}">
             <span class="icon-check_circle"></span>
             <span class="text">只看有内容的评价</span>
         </div>
@@ -44,20 +44,35 @@ const ALL = 2;       //所有评价
             }
         },
         methods:{
-            select(type,event){
-                if(!event._constructed){
-                    return;
+            // select(type,event){
+            //     if(!event._constructed){
+            //         return;
+            //     }
+            //     this.selectType = type;
+            //     this.$emit('selectRating',type);
+            // },
+            // toggleContent(){
+            //     if(!event._constructed){
+            //         return;
+            //     }
+            //     this.onlyContent = !this.onlyContent;
+            //     this.$emit('toggleContent',this.onlyContent);
+            // }
+
+            select(type, event) {
+                if (!event._constructed) {    // 还在better-scroll里面，避免PC端两次点击
+                  return
                 }
-                this.selectType = type;
-                //this.$root.$emit('ratingtype.select',type);
-            },
-            toggleContent(event){
-                if(!event._constructed){
-                    return;
+                this.$emit('select', type)   // 告诉父组件点击的类型
+              },
+            toggleContent(event) {
+                if (!event._constructed) {
+                  return
                 }
-                this.onlyContent = !this.onlyContent;
-                //this.$root.$emit('content.toggle',this.onlyContent);
-            }
+                console.log('点击');
+                this.$emit('toggleContent', this.onlyContent)   // 告诉父组件是否只显示有内容的评价
+              }
+
         },
         computed:{
             positives(){

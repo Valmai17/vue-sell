@@ -38,11 +38,11 @@
                 <div class="ratings">
                     <h1 class="title">商品评价</h1>
                     <!-- 评价分类 -->
-                    <ratingselect :selectType="selectType" :onlyContent="onlyContent" :desc="desc" :ratings="food.ratings"></ratingselect>
+                    <ratingselect @select="selectRating" @toggleContent="toggleContent" :selectType="selectType" :onlyContent="onlyContent" :desc="desc" :ratings="food.ratings"></ratingselect>
                     <!-- 评价详情 -->
                     <div class="rating-wrapper">
                         <ul v-show="food.ratings && food.ratings.length">
-                            <li v-for="rating in food.ratings" class="rating-item">
+                            <li v-show="needShow(rating.rateType,rating.text)" v-for="rating in food.ratings" class="rating-item">
                                 <div class="user">
                                     <span class="name">{{rating.username}}</span>
                                     <img class="avatar" :src="rating.avatar" style="width:.12rem;height:.12rem;"></span>
@@ -62,11 +62,11 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue';
   import BScroll from 'better-scroll';
-  import cartcontrol from '../cartcontrol/cartcontrol.vue';
-  import ratingselect from '../ratingselect/ratingselect.vue';
-  import split from '../split/split.vue';
-  // const POSITIVE = 0;  //正面评价
-  // const NEGATIVE = 1;  //负面评价
+  import cartcontrol from '../cartcontrol/cartcontrol.vue';//添加商品
+  import ratingselect from '../ratingselect/ratingselect.vue';//评价分类
+  import split from '../split/split.vue';//分割高度
+   const POSITIVE = 0;  //正面评价
+   const NEGATIVE = 1;  //负面评价
   const ALL = 2;       //所有评价
     export default{
         props:{
@@ -110,13 +110,46 @@
                 }
                 this.$root.eventHub.$emit('add',event.target);
                 Vue.set(this.food,'count',1);//添加商品数量属性
+            },
+            needShow(type,text){
+                if(this.onlyContent && !text){
+                    return false;
+                }
+                if(this.selectType === ALL){
+                    return true;
+                }else{
+                    return type === this.selectType;
+                }
+
+            },
+            selectRating(type) {
+              this.selectType = type
+              this.$nextTick(() => {
+                this.scroll.refresh()
+              })
+            },
+            toggleContent(onlyContent) {
+              this.onlyContent = !this.onlyContent
+              this.$nextTick(() => {
+                this.scroll.refresh()
+              })
             }
+            //派发的事件
+            // selectRating(type){
+            //     this.selectType = type;
+            // },
+            // toggleContent(onlyContent){
+            //     this.onlyContent = onlyContent;
+            // }
         },
         components:{
             'cartcontrol':cartcontrol,
             'split':split,
             'ratingselect': ratingselect
-        }
+        },
+        mounted(){
+
+        },
     }
 </script>
 <style  scoped lang="less">
