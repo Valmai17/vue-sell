@@ -44,21 +44,6 @@ const ALL = 2;       //所有评价
             }
         },
         methods:{
-            // select(type,event){
-            //     if(!event._constructed){
-            //         return;
-            //     }
-            //     this.selectType = type;
-            //     this.$emit('selectRating',type);
-            // },
-            // toggleContent(){
-            //     if(!event._constructed){
-            //         return;
-            //     }
-            //     this.onlyContent = !this.onlyContent;
-            //     this.$emit('toggleContent',this.onlyContent);
-            // }
-
             select(type, event) {
                 if (!event._constructed) {    // 还在better-scroll里面，避免PC端两次点击
                   return
@@ -69,7 +54,6 @@ const ALL = 2;       //所有评价
                 if (!event._constructed) {
                   return
                 }
-                console.log('点击');
                 this.$emit('toggleContent', this.onlyContent)   // 告诉父组件是否只显示有内容的评价
               }
 

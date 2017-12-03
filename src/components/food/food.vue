@@ -122,25 +122,18 @@
                 }
 
             },
-            selectRating(type) {
+            selectRating(type) {//通过组件标签上的@select="selectRating" 绑定子组件事件
               this.selectType = type
               this.$nextTick(() => {
-                this.scroll.refresh()
+                this.scroll.refresh();
               })
             },
-            toggleContent(onlyContent) {
+            toggleContent(onlyContent) {//通过组件标签上的@toggleContent="toggleContent"  绑定子组件事件
               this.onlyContent = !this.onlyContent
               this.$nextTick(() => {
-                this.scroll.refresh()
+                this.scroll.refresh();
               })
             }
-            //派发的事件
-            // selectRating(type){
-            //     this.selectType = type;
-            // },
-            // toggleContent(onlyContent){
-            //     this.onlyContent = onlyContent;
-            // }
         },
         components:{
             'cartcontrol':cartcontrol,
@@ -323,6 +316,11 @@
                             color:rgb(147,153,159);
                         }
                     }
+                }
+                .no-rating{
+                    padding:.16rem 0;
+                    font-size:.14rem;
+                    color:rgb(147,153,159);
                 }
             }
         }
