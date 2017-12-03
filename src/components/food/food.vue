@@ -47,7 +47,7 @@
                                     <span class="name">{{rating.username}}</span>
                                     <img class="avatar" :src="rating.avatar" style="width:.12rem;height:.12rem;"></span>
                                 </div>
-                                <div class="time">{{rating.rateTime}}</div>
+                                <div class="time">{{rating.rateTime | formatDate}}</div>
                                 <p class="text"><span :class="{'icon-thumb_up':rating.rateType === 0,'icon-thumb_down':rating.rateType === 1}"></span>{{rating.text}}</p>
                             </li>
                         </ul>
@@ -64,6 +64,7 @@
   import BScroll from 'better-scroll';
   import cartcontrol from '../cartcontrol/cartcontrol.vue';//添加商品
   import ratingselect from '../ratingselect/ratingselect.vue';//评价分类
+  import {formatDate} from '../../common/js/date.js';//分割高度
   import split from '../split/split.vue';//分割高度
    const POSITIVE = 0;  //正面评价
    const NEGATIVE = 1;  //负面评价
@@ -133,6 +134,12 @@
               this.$nextTick(() => {
                 this.scroll.refresh();
               })
+            }
+        },
+        filters:{
+            formatDate(time){
+                let date = new Date(time);
+                return formatDate(date,'yyyy-MM-dd hh:mm');
             }
         },
         components:{
