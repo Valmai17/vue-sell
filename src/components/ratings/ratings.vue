@@ -18,9 +18,9 @@
                         <star :size="36" :score="seller.foodScore"></star>
                         <span class="score">{{seller.foodScore}}</span>
                     </div>
-                    <div class="delivery-time">
+                    <div class="delivery-wrapper">
                         <span class="title">送达时间</span>
-                        <span class="">{{seller.deliveryTime}}</span>
+                        <span class="delivery">{{seller.deliveryTime}}分钟</span>
                     </div>
                 </div>
             </div>
@@ -79,6 +79,43 @@ import star from "../star/star.vue";
         .overview-right{
             flex:1;
             padding-left: .24rem;
+            .score-wrapper{
+                margin-bottom: .08rem;
+                font-size:0;
+                .title{
+                    display:inline-block;
+                    line-height:.18rem;
+                    font-size:.14rem;
+                    vertical-align: top;
+                    color:rgb(7,17,27);
+                }
+                .star{
+                    display:inline-block;
+                    margin:0 .12rem;
+                }
+                .score{
+                    display:inline-block;
+                    line-height:.18rem;
+                    font-size:.14rem;
+                    vertical-align: top;
+                    color:rgb(255,153,0);
+
+                }
+            }
+            .delivery-wrapper{
+                font-size:0;
+                .title{
+                    line-height:.18rem;
+                    font-size:.14rem;
+                    color:rgb(7,17,27);
+                }
+                .delivery{
+                    margin-left:.12rem;
+                    line-height:.14rem;
+                    font-size:.14rem;
+                    color:rgb(147,153,159);
+                }
+            }
         }
 
     }
