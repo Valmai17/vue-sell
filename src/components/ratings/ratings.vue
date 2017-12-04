@@ -29,7 +29,7 @@
             <ratingselect @select="selectRating" @toggleContent="toggleContent" :selectType="selectType" :onlyContent="onlyContent" :desc="desc" :ratings="ratings"></ratingselect>
             <div class="rating-wrapper">
                 <ul>
-                    <li v-for="rating in ratings" class="rating-item">
+                    <li  v-show="needShow(rating.rateType,rating.text)" v-for="rating in ratings" class="rating-item">
                         <div class="avatar">
                             <img style="width:100%;height:100%" :src="rating.avatar"/>
                         </div>
@@ -41,8 +41,8 @@
                             </div>
                             <p class="text">{{rating.text}}</p>
                             <div class="recommend" v-show="rating.recommend">
-                                <span class="icon-thumb_up"></span>
-                                <span v-for="recommend in rating.recommend">{{recommend}}</span>
+                                <span :class="{'icon-thumb_up':rating.rateType === 0,'icon-thumb_down':rating.rateType === 1}"></span>
+                                <span class="item" v-for="recommend in rating.recommend">{{recommend}}</span>
                             </div>
                             <div class="time">{{rating.rateTime | formatDate}}</div>
                         </div>
@@ -75,7 +75,7 @@
                 ratings:[],
                 showFlag: false,
                 selectType: 2,
-                onlyContent:true,
+                onlyContent:false,
                 desc:{
                     all:'全部',
                     positive:'推荐',
@@ -99,6 +99,17 @@
             });
         },
         methods:{
+            needShow(type,text){
+                if(this.onlyContent && !text){
+                    return false;
+                }
+                if(this.selectType === ALL){
+                    return true;
+                }else{
+                    return type === this.selectType;
+                }
+
+            },
             selectRating(type) {//通过组件标签上的@select="selectRating" 绑定子组件事件
               this.selectType = type
               this.$nextTick(() => {
@@ -247,6 +258,38 @@
                     color:rgb(147,153,159);
                 }
 
+            }
+            .text{
+                margin-bottom:.08rem;
+                line-height:.18rem;
+                color:rgb(7,17,27);
+                font-size:.14rem;
+            }
+            .recommend{
+                line-height:.16rem;
+                font-size:0;
+                .icon-thumb_up,.icon-thumb_down,.item{
+                    display:inline-block;
+                    margin:0 .08rem .04rem 0;
+                    font-size:.14rem;
+                }
+                .icon-thumb_up,.icon-thumb_down{
+                    color:rgb(0,160,220);
+                }
+                .item{
+                    padding:0 .06rem;
+                    border:1px solid rgba(7,17,27,0.2);
+                    border-radius:.02rem;
+                    color:rgb(147,153,159);
+                    background: #fff;
+                }
+            }
+            .time{
+                position:absolute;
+                top:0;
+                right:0;
+                font-size:.12rem;
+                color:rgb(147,153,159);
             }
         }
     }

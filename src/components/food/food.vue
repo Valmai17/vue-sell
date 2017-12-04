@@ -63,9 +63,9 @@
   import Vue from 'vue';
   import BScroll from 'better-scroll';
   import cartcontrol from '../cartcontrol/cartcontrol.vue';//添加商品
+  import split from '../split/split.vue';//分割高度
   import ratingselect from '../ratingselect/ratingselect.vue';//评价分类
   import {formatDate} from '../../common/js/date.js';//分割高度
-  import split from '../split/split.vue';//分割高度
    const POSITIVE = 0;  //正面评价
    const NEGATIVE = 1;  //负面评价
   const ALL = 2;       //所有评价
