@@ -24,22 +24,70 @@
                     </div>
                 </div>
             </div>
+            <split></split>
+            <!-- 评价分类 -->
+            <ratingselect @select="selectRating" @toggleContent="toggleContent" :selectType="selectType" :onlyContent="onlyContent" :ratings="ratings"></ratingselect>
         </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-import star from "../star/star.vue";
+    import axios from 'axios';
+    import star from '../star/star.vue';
+    import ratingselect from '../ratingselect/ratingselect.vue';//评价分类
+    import split from '../split/split.vue';//分割高度
+
+    const POSITIVE = 0;  //正面评价
+    const NEGATIVE = 1;  //负面评价
+    const ALL = 2;       //所有评价
     export default{
         props:{
             seller:{
                 type:Object
             }
         },
+        data(){
+            return {
+                ratings:[],
+                showFlag: false,
+                selectType: 2,
+                onlyContent:true,
+            }
+        },
+        created(){//实例化之前
+            axios.get('/api/ratings')
+            .then(function (res) {
+                this.ratings = res.data.data;
+                // this.$nextTick(() => {
+                //     this._initScroll();
+                //     this._calculateHeight();
+                // });
+                console.log(this.ratings);
+            }.bind(this))
+            .catch(function (error) {
+                alert(error);
+            });
+        },
+        methods:{
+            selectRating(type) {//通过组件标签上的@select="selectRating" 绑定子组件事件
+              this.selectType = type
+              this.$nextTick(() => {
+                this.scroll.refresh();
+              })
+            },
+            toggleContent(onlyContent) {//通过组件标签上的@toggleContent="toggleContent"  绑定子组件事件
+              this.onlyContent = !this.onlyContent
+              this.$nextTick(() => {
+                this.scroll.refresh();
+              })
+            }
+        },
         components:{
-            'star':star
+            'star':star,
+            'ratingselect':ratingselect,
+            'split':split
         }
-    };
+    }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
 .ratings{
@@ -58,6 +106,10 @@ import star from "../star/star.vue";
             width:1.37rem;
             border-right: 1px solid rgba(7,17,27,0.2);
             text-align: center;
+            @media only screen and (max-width:320px){
+                flex:0 0 1.2rem;
+                width:1.2rem;
+            }
             .score{
                 margin-bottom:.06rem;
                 line-height: 0.28rem;
@@ -78,7 +130,7 @@ import star from "../star/star.vue";
         }
         .overview-right{
             flex:1;
-            padding-left: .24rem;
+            padding:.06rem 0 .06rem .24rem;
             .score-wrapper{
                 margin-bottom: .08rem;
                 font-size:0;
@@ -99,7 +151,6 @@ import star from "../star/star.vue";
                     font-size:.14rem;
                     vertical-align: top;
                     color:rgb(255,153,0);
-
                 }
             }
             .delivery-wrapper{
