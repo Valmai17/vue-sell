@@ -1,5 +1,5 @@
 <template>
-    <div class="ratings">
+    <div class="ratings" ref="ratingsContent">
         <div class="ratings-content">
             <div class="overview">
                 <div class="overview-left">
@@ -26,16 +26,40 @@
             </div>
             <split></split>
             <!-- 评价分类 -->
-            <ratingselect @select="selectRating" @toggleContent="toggleContent" :selectType="selectType" :onlyContent="onlyContent" :ratings="ratings"></ratingselect>
+            <ratingselect @select="selectRating" @toggleContent="toggleContent" :selectType="selectType" :onlyContent="onlyContent" :desc="desc" :ratings="ratings"></ratingselect>
+            <div class="rating-wrapper">
+                <ul>
+                    <li v-for="rating in ratings" class="rating-item">
+                        <div class="avatar">
+                            <img style="width:100%;height:100%" :src="rating.avatar"/>
+                        </div>
+                        <div class="content">
+                            <h1 class="name">{{rating.username}}</h1>
+                            <div class="star-wrapper">
+                                <star :size="24" :score="rating.score"></star>
+                                <span class="delivery" v-show="rating.deliveryTime">{{rating.deliveryTime}}分钟送达</span>
+                            </div>
+                            <p class="text">{{rating.text}}</p>
+                            <div class="recommend" v-show="rating.recommend">
+                                <span class="icon-thumb_up"></span>
+                                <span v-for="recommend in rating.recommend">{{recommend}}</span>
+                            </div>
+                            <div class="time">{{rating.rateTime | formatDate}}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import axios from 'axios';
+    import BScroll from 'better-scroll';
     import star from '../star/star.vue';
     import ratingselect from '../ratingselect/ratingselect.vue';//评价分类
     import split from '../split/split.vue';//分割高度
+    import {formatDate} from '../../common/js/date.js';//分割高度
 
     const POSITIVE = 0;  //正面评价
     const NEGATIVE = 1;  //负面评价
@@ -52,16 +76,22 @@
                 showFlag: false,
                 selectType: 2,
                 onlyContent:true,
+                desc:{
+                    all:'全部',
+                    positive:'推荐',
+                    negative:'吐槽'
+                }
             }
         },
         created(){//实例化之前
             axios.get('/api/ratings')
             .then(function (res) {
                 this.ratings = res.data.data;
-                // this.$nextTick(() => {
-                //     this._initScroll();
-                //     this._calculateHeight();
-                // });
+                this.$nextTick(() => {
+                    this.scroll = new BScroll(this.$refs.ratingsContent,{
+                        click:true
+                    });
+                });
                 console.log(this.ratings);
             }.bind(this))
             .catch(function (error) {
@@ -82,6 +112,12 @@
               })
             }
         },
+        filters:{
+            formatDate(time){
+                let date = new Date(time);
+                return formatDate(date,'yyyy-MM-dd hh:mm');
+            }
+        },
         components:{
             'star':star,
             'ratingselect':ratingselect,
@@ -90,9 +126,10 @@
     }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
+@import "../../common/less/mixin.less";
 .ratings{
     position: absolute;
-    top:1.74rem;
+    top:1.8rem;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -169,6 +206,49 @@
             }
         }
 
+    }
+    .rating-wrapper{
+        padding:0 .18rem;
+        .rating-item{
+            display:flex;
+            padding:.18rem 0;
+            .border-1px(rgba(7,17,27,0.3));
+            .avatar{
+                flex:0 0 .3rem;
+                width:.3rem;
+                height: .3rem;
+                margin-right:.12rem;
+                img{
+                    border-radius: 50%;
+                }
+            }
+            .content{
+                position:relative;
+                flex:1;
+                .name{
+                    margin-bottom:.04rem;
+                    line-height:.14rem;
+                    font-size:.12rem;
+                    color:rgb(7,17,27);
+                }
+            }
+            .star-wrapper{
+                margin-bottom:.06rem;
+                font-size:0;
+                .star{
+                    display:inline-block;
+                    margin-right:.06rem;
+                    vertical-align:top;
+                }
+                .delivery{
+                    display:inline-block;
+                    vertical-align:top;
+                    font-size:.12rem;
+                    color:rgb(147,153,159);
+                }
+
+            }
+        }
     }
 }
 </style>
