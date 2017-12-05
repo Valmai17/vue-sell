@@ -2,11 +2,11 @@
     <div class="seller">
     	<div class="seller-content">
             <div class="overview">
-                <h1 class="title">seller.name</h1>
+                <h1 class="title">{{seller.name}}</h1>
                 <div class="desc">
-                    <star :size="36" score="seller.score"></star>
+                    <star :size="36" :score="seller.score"></star>
                     <span class="text">({{seller.ratingCount}})</span>
-                    <span class="text">{{seller.sellCount}}</span>
+                    <span class="text">月售{{seller.sellCount}}单</span>
                 </div>
                 <ul class="remark">
                     <li class="block">
@@ -29,12 +29,18 @@
                     </li>
                 </ul>
             </div>
+            <split></split>
+            <div class="bulletin">
+                <h1 class="title">公告与活动</h1>
+                <div class="content-wrapper"></div>
+            </div>
         </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import BScroll from 'better-scroll';
+    import split from '../split/split.vue';//分割高度
     import star from '../star/star.vue';
     export default{
         props:{
@@ -43,10 +49,73 @@
             }
         },
         components:{
-            'star':star
+            'star':star,
+            'split':split
         }
     };
 </script>
 
 <style lang="less" rel="stylesheet/less">
+@import "../../common/less/mixin.less";
+.seller{
+    position: absolute;
+    top:1.8rem;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    .overview{
+        padding: .18rem;
+        .title{
+            margin-bottom: .08rem;
+            line-height: .16rem;
+            font-size: .16rem;
+            color:rgb(7,17,27);
+        }
+        .desc{
+            padding-bottom: .18rem;
+            font-size:0;
+            .border-1px(rgba(7,17,27,0.2));
+            .star{
+                display: inline-block;
+                margin-right:.08rem;
+                vertical-align: top;
+            }
+            .text{
+                display:inline-block;
+                line-height: .18rem;
+                margin-right:.12rem;
+                vertical-align: top;
+                font-size:.12rem;
+                color:rgb(77,85,93);
+            }
+        }
+        .remark{
+            display:flex;
+            padding-top: .18rem;
+            .block{
+                flex:1;
+                text-align: center;
+                border-right: 1px solid rgba(7,17,27,0.2);
+                &:last-child{
+                    border:none;
+                }
+                h2{
+                    margin-bottom: .04rem;
+                    line-height:.12rem;
+                    font-size:.12rem;
+                    color:rgb(147,153,159);
+                }
+                .content{
+                    line-height:.24rem;
+                    font-size:.12rem;
+                    color:rgb(7,17,27);
+                    .stress{
+                        font-size:.24rem;
+                    }
+                }
+            }
+        }
+    }
+}
 </style>
