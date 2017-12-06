@@ -38,20 +38,22 @@
                 <ul v-if="seller.supports" class="supports">
                     <li class="supports-item" v-for="(item, index) in seller.supports">
                         <!-- <span class="icon" :class="classMap[seller.supports[index].type]"></span> -->
-                        <v-icon  :size="2" :subscript="seller.supports[index].type"></v-icon>
+                        <v-icon  :size="3" :subscript="seller.supports[index].type"></v-icon>
                         <span class="text">{{seller.supports[index].description}}</span>
                     </li>
                 </ul>
             </div>
             <split></split>
-            <!-- <div class="pics">
+            <div class="pics">
                 <h1 class="title">商家实景</h1>
                 <div class="pic-wrapper">
                     <ul class="pic-list">
-                        <li class="pic-item" v-for="pic in "></li>
+                        <li class="pic-item" v-for="pic in seller.pics">
+                            <img :src="pic" style="width:1.2rem;height:.9rem"/>
+                        </li>
                     </ul>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </template>
@@ -188,6 +190,32 @@
                 .text{
                     line-height:.16rem;
                     font-size:.14rem;
+                }
+            }
+        }
+    }
+    .pics{
+        padding:.18rem;
+        .title{
+            margin-bottom: .12rem;
+            line-height: .16rem;
+            font-size: .16rem;
+            color:rgb(7,17,27);
+        }
+        .pic-wrapper{
+            width:100%;
+            overflow:hidden;
+            white-space:nowrap;
+            .pic-list{
+                font-size:0;
+                .pic-item{
+                    display:inline-block;
+                    margin-right:6px;
+                    width:1.2rem;
+                    height:.9rem;
+                    &:last-child{
+                        margin-right:0;
+                    }
                 }
             }
         }
