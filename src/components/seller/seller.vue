@@ -1,5 +1,5 @@
 <template>
-    <div class="seller">
+    <div class="seller" ref="seller">
     	<div class="seller-content">
             <div class="overview">
                 <h1 class="title">{{seller.name}}</h1>
@@ -12,19 +12,19 @@
                     <li class="block">
                         <h2>起送价</h2>
                         <div class="content">
-                            <span class="stress">{{seller.minPrice}}</span>
+                            <span class="stress">{{seller.minPrice}}</span>元
                         </div>
                     </li>
                     <li class="block">
                         <h2>商家配送</h2>
                         <div class="content">
-                            <span class="stress">{{seller.deliveryPrice}}</span>
+                            <span class="stress">{{seller.deliveryPrice}}</span>元
                         </div>
                     </li>
                     <li class="block">
                         <h2>平均配送时间</h2>
                         <div class="content">
-                            <span class="stress">{{seller.deliveryTime}}</span>
+                            <span class="stress">{{seller.deliveryTime}}</span>分钟
                         </div>
                     </li>
                 </ul>
@@ -32,7 +32,16 @@
             <split></split>
             <div class="bulletin">
                 <h1 class="title">公告与活动</h1>
-                <div class="content-wrapper"></div>
+                <div class="content-wrapper">
+                    <p class="content">{{seller.bulletin}}</p>
+                </div>
+                <ul v-if="seller.supports" class="supports">
+                    <li class="supports-item" v-for="(item, index) in seller.supports">
+                        <!-- <span class="icon" :class="classMap[seller.supports[index].type]"></span> -->
+                        <v-icon  :size="2" :subscript="seller.supports[index].type"></v-icon>
+                        <span class="text">{{seller.supports[index].description}}</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -41,6 +50,7 @@
 <script type="text/ecmascript-6">
     import BScroll from 'better-scroll';
     import split from '../split/split.vue';//分割高度
+    import icon from '../icon/icon.vue';
     import star from '../star/star.vue';
     export default{
         props:{
@@ -50,7 +60,13 @@
         },
         components:{
             'star':star,
-            'split':split
+            'split':split,
+            'v-icon':icon
+        },
+        mounted(){
+            this.scroll = new BScroll(this.$refs.seller,{
+                click:true
+            });
         }
     };
 </script>
@@ -113,6 +129,38 @@
                     .stress{
                         font-size:.24rem;
                     }
+                }
+            }
+        }
+    }
+    .bulletin{
+        padding:.18rem .18rem 0 .18rem;
+        .title{
+            margin-bottom: .08rem;
+            line-height: .16rem;
+            font-size: .16rem;
+            color:rgb(7,17,27);
+        }
+        .content-wrapper{
+            padding:0 .12rem .16rem .12rem;
+            .border-1px(rgba(7,17,27,0.2));
+            .content{
+                line-height:.24rem;
+                font-size:.14rem;
+                color:rgb(240,20,20);
+            }
+        }
+        .supports{
+            .supports-item{
+                padding:.16rem .12rem;
+                font-size:0;
+                .border-1px(rgba(7,17,27,0.2));
+                &:last-child{
+                    margin-bottom:0;
+                }
+                .text{
+                    line-height:.16rem;
+                    font-size:.14rem;
                 }
             }
         }
