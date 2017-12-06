@@ -43,6 +43,15 @@
                     </li>
                 </ul>
             </div>
+            <split></split>
+            <!-- <div class="pics">
+                <h1 class="title">商家实景</h1>
+                <div class="pic-wrapper">
+                    <ul class="pic-list">
+                        <li class="pic-item" v-for="pic in "></li>
+                    </ul>
+                </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -58,15 +67,33 @@
                 type:Object
             }
         },
+        mounted(){
+            this.$nextTick(() => {
+                this._initScroll();
+            });
+        },
+        watch:{//监听数据
+            'seller'(){
+                this.$nextTick(() => {
+                    this._initScroll();
+                });
+            }
+        },
+        methods:{
+            _initScroll(){
+                if(!this.scroll){
+                    this.scroll = new BScroll(this.$refs.seller,{
+                        click:true
+                    })
+                }else{
+                    this.scroll.refresh();
+                }
+            }
+        },
         components:{
             'star':star,
             'split':split,
             'v-icon':icon
-        },
-        mounted(){
-            this.scroll = new BScroll(this.$refs.seller,{
-                click:true
-            });
         }
     };
 </script>
@@ -156,7 +183,7 @@
                 font-size:0;
                 .border-1px(rgba(7,17,27,0.2));
                 &:last-child{
-                    margin-bottom:0;
+                    .border-none();
                 }
                 .text{
                     line-height:.16rem;
