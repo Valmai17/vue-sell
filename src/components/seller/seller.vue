@@ -28,6 +28,11 @@
                         </div>
                     </li>
                 </ul>
+                <!-- 收藏 -->
+                <div class="favorite" @click="toggleFavorite">
+                    <span class="icon-favorite" :class="{'active':favorite}"></span>
+                    <span class="text">{{favoriteText}}</span>
+                </div>
             </div>
             <split></split>
             <div class="bulletin">
@@ -76,6 +81,11 @@
                 type:Object
             }
         },
+        data(){
+            return{
+                favorite:false,
+            }
+        },
         mounted(){
             this.$nextTick(() => {
                 this._initScroll();
@@ -91,6 +101,10 @@
             }
         },
         methods:{
+            toggleFavorite(event){
+                if(!event._constructed){ return }
+                this.favorite = !this.favorite;
+            },
             _initScroll(){
                 if(!this.scroll){
                     this.scroll = new BScroll(this.$refs.seller,{
@@ -118,6 +132,11 @@
                 }
             }
         },
+        computed:{
+            favoriteText(){
+                return this.favorite?'已收藏':'收藏';
+            }
+        },
         components:{
             'star':star,
             'split':split,
@@ -136,6 +155,7 @@
     width: 100%;
     overflow: hidden;
     .overview{
+        position:relative;
         padding: .18rem;
         .title{
             margin-bottom: .08rem;
@@ -185,6 +205,27 @@
                         font-size:.24rem;
                     }
                 }
+            }
+        }
+        .favorite{
+            position:absolute;
+            right:.11rem;
+            top:.18rem;
+            width:.38rem;
+            text-align:center;
+            .icon-favorite{
+                display:block;
+                line-height:.24rem;
+                font-size:.24rem;
+                color:#d4d6d9;
+                &.active{
+                    color:rgb(240,20,20);
+                }
+            }
+            .text{
+                line-height:.12rem;
+                font-size:.12rem;
+                color:rgb(77,85,93);
             }
         }
     }
