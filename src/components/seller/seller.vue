@@ -46,8 +46,8 @@
             <split></split>
             <div class="pics">
                 <h1 class="title">商家实景</h1>
-                <div class="pic-wrapper">
-                    <ul class="pic-list">
+                <div class="pic-wrapper" ref="picWrapper">
+                    <ul class="pic-list" ref="picList">
                         <li class="pic-item" v-for="pic in seller.pics">
                             <img :src="pic" style="width:1.2rem;height:.9rem"/>
                         </li>
@@ -72,12 +72,14 @@
         mounted(){
             this.$nextTick(() => {
                 this._initScroll();
+                this._initPic();
             });
         },
         watch:{//监听数据
             'seller'(){
                 this.$nextTick(() => {
                     this._initScroll();
+                    this._initPic();
                 });
             }
         },
@@ -89,6 +91,23 @@
                     })
                 }else{
                     this.scroll.refresh();
+                }
+            },
+            _initPic() {
+                if(this.seller.pics){
+                    let picWidth = 1.2;
+                    let margin = 0.06;
+                    let width = (picWidth+margin)*this.seller.pics.length-margin;
+                    this.$refs.picList.style.width = width+'rem';
+                    //better-scroll左右滚动
+                    if(!this.picScroll){
+                        this.picScroll = new BScroll(this.$refs.picWrapper,{
+                            scrollX: true,
+                            eventPassthrough: 'vertical'
+                        });
+                    }else{
+                        this.picScroll.refresh();
+                    }
                 }
             }
         },
@@ -210,7 +229,7 @@
                 font-size:0;
                 .pic-item{
                     display:inline-block;
-                    margin-right:6px;
+                    margin-right:.06rem;
                     width:1.2rem;
                     height:.9rem;
                     &:last-child{
