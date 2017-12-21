@@ -276,6 +276,9 @@
                 .icon-thumb_up,.icon-thumb_down{
                     color:rgb(0,160,220);
                 }
+                .icon-thumb_down{
+                    color:rgb(147,153,159);
+                }
                 .item{
                     padding:0 .06rem;
                     border:1px solid rgba(7,17,27,0.2);

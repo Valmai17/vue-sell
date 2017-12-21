@@ -17,7 +17,12 @@
   export default{
     data(){
       return{
-        seller:{}
+        seller:{
+          id:(()=>{
+            let queryParam = urlParse();
+            return queryParam.id;
+          })();
+        }
       }
     },
     created(){//(钩子函数)实例已经创建完成，属性已经绑定
