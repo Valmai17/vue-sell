@@ -13,6 +13,7 @@
 <script>
   import axios from 'axios';
   import header from './components/header/header.vue';
+  import {urlParse} from './common/js/util.js';//商家id
   //axios.defaults.baseURL = 'http://localhost:8080/#/';
   export default{
     data(){
@@ -21,15 +22,19 @@
           id:(()=>{
             let queryParam = urlParse();
             return queryParam.id;
-          })();
+          })()
         }
       }
     },
     created(){//(钩子函数)实例已经创建完成，属性已经绑定
-      axios.get('/api/seller')
+      axios.get('/api/seller?id='+this.seller.id)
       .then(function (res) {
-        this.seller = res.data.data;
-        console.log(this.seller);
+        // this.seller = res.data.data;
+        // console.log(this.seller);
+
+        this.seller = Object.assign({}, this.seller, res.data.data)  // 用Object的assign方法将data的seller.id和请求回来的seller数据组合一起
+        console.log(this.seller.id)
+
       }.bind(this))
       .catch(function (error) {
         alert(error);
