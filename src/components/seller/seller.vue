@@ -72,6 +72,7 @@
 
 <script type="text/ecmascript-6">
     import BScroll from 'better-scroll';
+    import {saveToLocal,loadFromLocal} from '../../common/js/store.js';
     import split from '../split/split.vue';//分割高度
     import icon from '../icon/icon.vue';
     import star from '../star/star.vue';
@@ -83,7 +84,9 @@
         },
         data(){
             return{
-                favorite:false,
+                favorite:(()=>{
+                    return loadFromLocal(this.seller.id,'favorite',false);
+                })()
             }
         },
         mounted(){
@@ -102,8 +105,9 @@
         },
         methods:{
             toggleFavorite(event){
-                if(!event._constructed){ return }
+                if(!event._constructed){ return }//BScroll 插件防止双重点击
                 this.favorite = !this.favorite;
+                saveToLocal(this.seller.id,'favorite',this.favorite);
             },
             _initScroll(){
                 if(!this.scroll){
