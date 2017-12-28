@@ -3,8 +3,8 @@ require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
 
-const ora = require('ora')
-const rm = require('rimraf')
+const ora = require('ora')//给长时间运行任务的提示
+const rm = require('rimraf')//
 const path = require('path')
 const chalk = require('chalk')
 const webpack = require('webpack')
